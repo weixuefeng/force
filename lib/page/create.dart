@@ -2,7 +2,7 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-05-16 19:14:36
+ * @LastEditTime: 2022-05-16 21:33:27
  * @FilePath: /tech_research/forcewallet/lib/page/create.dart
  * @Description: 
  */
@@ -51,6 +51,9 @@ class _CreateWalletState extends State<CreateWalletPage> {
           Text(
             'ethAddress: $ethAddress',
           ),
+          MaterialButton(
+              onPressed: () => {Navigator.pushNamed(context, '/home')},
+              child: const Text("confirm"))
         ],
       )),
     );
