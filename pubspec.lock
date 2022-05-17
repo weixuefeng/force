@@ -99,8 +99,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: feat-add-new
-      resolved-ref: a9d0988686ef48b3d57a0a672729e3bff826be66
+      ref: "335ad1621b627bc7d5e23338e2ea9735ee997693"
+      resolved-ref: "335ad1621b627bc7d5e23338e2ea9735ee997693"
       url: "https://github.com/weixuefeng/flutter_trust_wallet_core_lib_include.git"
     source: git
     version: "0.0.1"

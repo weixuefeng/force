@@ -2,10 +2,12 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-05-17 11:22:55
+ * @LastEditTime: 2022-05-17 17:08:13
  * @FilePath: /forcewallet/lib/page/import.dart
  * @Description: 
  */
+import 'dart:typed_data';
+
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
@@ -43,7 +45,7 @@ class _CreateImportState extends State<ImportWalletPage> {
             controller: _mInputContentController,
             decoration: const InputDecoration(
               labelText: "助记词/私钥",
-              hintText: 'mnemonic/private',
+              hintText: 'mnemonic/private/json',
             ),
           ),
           MaterialButton(
@@ -80,14 +82,40 @@ class _CreateImportState extends State<ImportWalletPage> {
     var hexNewPrivateKey = hex.encode(newPrivate);
     var hexEthPrivateKey = hex.encode(ethPrivate);
     print("newPrivate: $hexNewPrivateKey,\r\n ethPrivate: $hexEthPrivateKey");
-    var k1Master = hdWallet.getMaterKey(TWCurve.TWCurveSECP256k1).data();
-    var r1Master = hdWallet.getMaterKey(TWCurve.TWCurveNIST256p1).data();
+    var k1Master =
+        hdWallet.getMaterKey(TWCurve.TWPublicKeyTypeSECP256k1Extended).data();
+    var r1Master =
+        hdWallet.getMaterKey(TWCurve.TWPublicKeyTypeNIST256p1Extended).data();
     print(
         "master k1: ${hex.encode(k1Master)},\r\n master r1: ${hex.encode(r1Master)}");
+    /**
+       * mnemonic: seek mixed range accident lift indoor three art green mad enlist ugly
+       * newAddress: 0x9DE95e3234410B89A363d3429d5Ca24D20Fa91Bc, 
+       * ethAddress: 0x31dC2F96d14b8b07cD371E4512FA778e70FC15B8
+        newPrivate: cbc433938ce6ec9aee7a8ed852430ec606bb7b5f62b3128df4e8357f497eded5,
+        ethPrivate: 8ec3848366dcf4655ced8f2a799859e1796f53954ff199ccfd34021b5bd2c049
+        master k1: 84519b8f82ea5ae0210baab002d188695fc3d08fd8c47e4b9fe56de25125dab3,
+        master r1: 767e806a25a3acf709a452c1c615b448761337d409370a294cabba170d0be249
+       */
   }
 
-  void importPrivate(String privateKey) {
+  void importPrivate(String priv) {
     /// todo: check private key
+    var privateKeyData = hex.decode(priv) as Uint8List;
+    var storedKey = StoredKey.importPrivateKey(
+        privateKeyData, "name", "password", TWCoinType.TWCoinTypeNewChain);
+    var count = storedKey?.accountCount();
+    print("count: $count");
+    var json = storedKey?.exportJson();
+    print(json);
+
+    var privateKey = PrivateKey.createWithData(privateKeyData);
+    var publicKey = privateKey.getPublicKey(3);
+    print(publicKey);
+    var newAddress =
+        AnyAddress.createWithPublicKey(publicKey, TWCoinType.TWCoinTypeNewChain)
+            .data();
+    print("newAddress: ${hex.encode(newAddress)}");
   }
 
   void importJson(String json) {

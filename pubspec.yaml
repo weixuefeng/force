@@ -38,7 +38,7 @@ dependencies:
   flutter_trust_wallet_core:
     git: 
       url: https://github.com/weixuefeng/flutter_trust_wallet_core_lib_include.git
-      ref: feat-add-new
+      ref: 335ad1621b627bc7d5e23338e2ea9735ee997693
 
 dev_dependencies:
   flutter_test:
