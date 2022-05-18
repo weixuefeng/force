@@ -2,7 +2,7 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-05-17 17:08:13
+ * @LastEditTime: 2022-05-18 10:34:55
  * @FilePath: /forcewallet/lib/page/import.dart
  * @Description: 
  */
@@ -11,7 +11,12 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
+import 'package:flutter_trust_wallet_core/protobuf/Ethereum.pb.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:forcewallet/network/rpc_ethereum.dart';
+import 'package:web3dart/web3dart.dart';
+
+import '../constant/constant.dart';
 
 class ImportWalletPage extends StatefulWidget {
   const ImportWalletPage({Key? key}) : super(key: key);
@@ -55,7 +60,7 @@ class _CreateImportState extends State<ImportWalletPage> {
     );
   }
 
-  void import() {
+  void import() async {
     var input = _mInputContentController.text.trim();
     if (input.startsWith("{")) {
       // import json
@@ -88,6 +93,7 @@ class _CreateImportState extends State<ImportWalletPage> {
         hdWallet.getMaterKey(TWCurve.TWPublicKeyTypeNIST256p1Extended).data();
     print(
         "master k1: ${hex.encode(k1Master)},\r\n master r1: ${hex.encode(r1Master)}");
+
     /**
        * mnemonic: seek mixed range accident lift indoor three art green mad enlist ugly
        * newAddress: 0x9DE95e3234410B89A363d3429d5Ca24D20Fa91Bc, 
@@ -116,9 +122,22 @@ class _CreateImportState extends State<ImportWalletPage> {
         AnyAddress.createWithPublicKey(publicKey, TWCoinType.TWCoinTypeNewChain)
             .data();
     print("newAddress: ${hex.encode(newAddress)}");
+
+    rpcRequest(hex.encode(newAddress));
   }
 
   void importJson(String json) {
     /// todo: check json
+  }
+
+  void rpcRequest(address) async {
+    var rpc = RpcEthereum(NewChainTest);
+    var balance = await rpc.getBalance(address);
+    var count = await rpc.getTransactionCount(address);
+    var gasPrice = await rpc.gasPrice();
+    var gasLimit = await rpc.estimateGas(
+        fromAddress: address, toAddress: address, value: EtherAmount.zero());
+    print(
+        "balance: $balance, count: $count, gasPrice: $gasPrice, gasLimit: $gasLimit");
   }
 }
