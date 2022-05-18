@@ -2,7 +2,7 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-05-18 10:34:55
+ * @LastEditTime: 2022-05-18 11:10:50
  * @FilePath: /forcewallet/lib/page/import.dart
  * @Description: 
  */
@@ -11,7 +11,8 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
-import 'package:flutter_trust_wallet_core/protobuf/Ethereum.pb.dart';
+import 'package:flutter_trust_wallet_core/protobuf/Ethereum.pb.dart'
+    as Ethereum;
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
 import 'package:forcewallet/network/rpc_ethereum.dart';
 import 'package:web3dart/web3dart.dart';
@@ -54,7 +55,8 @@ class _CreateImportState extends State<ImportWalletPage> {
             ),
           ),
           MaterialButton(
-              onPressed: () => {import()}, child: const Text("confirm"))
+              onPressed: () => {import()}, child: const Text("confirm")),
+          MaterialButton(onPressed: () => {send()}, child: const Text("send"))
         ],
       ),
     );
@@ -139,5 +141,56 @@ class _CreateImportState extends State<ImportWalletPage> {
         fromAddress: address, toAddress: address, value: EtherAmount.zero());
     print(
         "balance: $balance, count: $count, gasPrice: $gasPrice, gasLimit: $gasLimit");
+  }
+
+  void send() async {
+    var rpc = RpcEthereum(NewChainTest);
+
+    var priv =
+        "cbc433938ce6ec9aee7a8ed852430ec606bb7b5f62b3128df4e8357f497eded5";
+    var privateKeyData = hex.decode(priv) as Uint8List;
+
+    var storedKey = StoredKey.importPrivateKey(
+        privateKeyData, "name", "password", TWCoinType.TWCoinTypeNewChain);
+    var privateKey = PrivateKey.createWithData(privateKeyData);
+    var publicKey =
+        privateKey.getPublicKey(TWCurve.TWPublicKeyTypeNIST256p1Extended);
+    var newAddress =
+        AnyAddress.createWithPublicKey(publicKey, TWCoinType.TWCoinTypeNewChain)
+            .data();
+    var addressStr = hex.encode(newAddress);
+
+    var balance = await rpc.getBalance(addressStr);
+    var count = await rpc.getTransactionCount(addressStr);
+    var gasPrice = await rpc.gasPrice();
+    var gasLimit = await rpc.estimateGas(
+        fromAddress: addressStr,
+        toAddress: addressStr,
+        value: EtherAmount.zero());
+    var id = await rpc.getNetworkId();
+
+    print(
+        "id:$id balance: $balance, count: $count, gasPrice: $gasPrice, gasLimit: $gasLimit");
+    Ethereum.SigningInput input = Ethereum.SigningInput(
+        chainId: [id],
+        nonce: [count],
+        gasPrice: [gasPrice!.toInt()],
+        gasLimit: [gasLimit.toInt()],
+        maxFeePerGas: [0],
+        maxInclusionFeePerGas: [0],
+        toAddress: "0x9de95e3234410b89a363d3429d5ca24d20fa91bc",
+        privateKey: privateKeyData,
+        transaction: Ethereum.Transaction(
+            transfer: Ethereum.Transaction_Transfer(
+          amount: [0],
+        )));
+    print(input);
+    final output = Ethereum.SigningOutput.fromBuffer(
+        AnySigner.sign(input.writeToBuffer(), TWCoinType.TWCoinTypeNewChain)
+            .toList());
+    var res = output.encoded;
+    print("res: $res");
+    var hash = await rpc.sendRawTransaction(Uint8List.fromList(res));
+    print("hash: $hash");
   }
 }

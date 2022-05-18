@@ -28,4 +28,6 @@ abstract class RpcInterface {
       Uint8List? data});
 
   Future<String> sendRawTransaction(Uint8List signedTransaction);
+
+  Future<int> getNetworkId();
 }

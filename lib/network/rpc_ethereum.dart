@@ -2,7 +2,7 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-17 17:56:48
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-05-18 09:52:51
+ * @LastEditTime: 2022-05-18 11:10:14
  * @FilePath: /forcewallet/lib/network/rpc_ethereum.dart
  * @Description: 
  */
@@ -72,6 +72,11 @@ class RpcEthereum extends RpcInterface {
 
   @override
   Future<String> sendRawTransaction(Uint8List signedTransaction) {
-    throw UnimplementedError();
+    return mWeb3Client.sendRawTransaction(signedTransaction);
+  }
+
+  @override
+  Future<int> getNetworkId() {
+    return mWeb3Client.getNetworkId();
   }
 }
