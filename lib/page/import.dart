@@ -2,7 +2,7 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-05-18 11:10:50
+ * @LastEditTime: 2022-05-19 19:47:10
  * @FilePath: /forcewallet/lib/page/import.dart
  * @Description: 
  */
@@ -144,19 +144,20 @@ class _CreateImportState extends State<ImportWalletPage> {
   }
 
   void send() async {
-    var rpc = RpcEthereum(NewChainTest);
-
+    var rpc = RpcEthereum(EthRinkbyTest);
+    // new priv: cbc433938ce6ec9aee7a8ed852430ec606bb7b5f62b3128df4e8357f497eded5
+    // eth priv: c8b66a6cea18f8e410f0a6c66e0415d90134315c9080c0a07434d0f0ab7d9aa9
     var priv =
-        "cbc433938ce6ec9aee7a8ed852430ec606bb7b5f62b3128df4e8357f497eded5";
+        "c8b66a6cea18f8e410f0a6c66e0415d90134315c9080c0a07434d0f0ab7d9aa9";
     var privateKeyData = hex.decode(priv) as Uint8List;
 
     var storedKey = StoredKey.importPrivateKey(
-        privateKeyData, "name", "password", TWCoinType.TWCoinTypeNewChain);
+        privateKeyData, "name", "password", TWCoinType.TWCoinTypeEthereum);
     var privateKey = PrivateKey.createWithData(privateKeyData);
     var publicKey =
-        privateKey.getPublicKey(TWCurve.TWPublicKeyTypeNIST256p1Extended);
+        privateKey.getPublicKey(TWCurve.TWPublicKeyTypeSECP256k1Extended);
     var newAddress =
-        AnyAddress.createWithPublicKey(publicKey, TWCoinType.TWCoinTypeNewChain)
+        AnyAddress.createWithPublicKey(publicKey, TWCoinType.TWCoinTypeEthereum)
             .data();
     var addressStr = hex.encode(newAddress);
 
@@ -176,8 +177,8 @@ class _CreateImportState extends State<ImportWalletPage> {
         nonce: [count],
         gasPrice: [gasPrice!.toInt()],
         gasLimit: [gasLimit.toInt()],
-        maxFeePerGas: [0],
-        maxInclusionFeePerGas: [0],
+        maxFeePerGas: [10000],
+        maxInclusionFeePerGas: [10000],
         toAddress: "0x9de95e3234410b89a363d3429d5ca24d20fa91bc",
         privateKey: privateKeyData,
         transaction: Ethereum.Transaction(
@@ -189,7 +190,7 @@ class _CreateImportState extends State<ImportWalletPage> {
         AnySigner.sign(input.writeToBuffer(), TWCoinType.TWCoinTypeNewChain)
             .toList());
     var res = output.encoded;
-    print("res: $res");
+    print("res: ${hex.encode(res)}");
     var hash = await rpc.sendRawTransaction(Uint8List.fromList(res));
     print("hash: $hash");
   }
