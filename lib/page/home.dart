@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:get/get.dart';
 
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-06-02 16:35:41
+ * @LastEditTime: 2022-06-02 17:18:39
  * @FilePath: /forcewallet/lib/page/home.dart
  * @Description: 
  */

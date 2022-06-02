@@ -5,22 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:convert/convert.dart';
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:forcewallet/app/network/rpc_ethereum.dart';
+import 'package:forcewallet/app/utils/extension.dart';
 import 'package:web3dart/web3dart.dart';
 
-import 'package:forcewallet/database/database_manager.dart';
-import 'package:forcewallet/network/rpc_ethereum.dart';
-import 'package:forcewallet/utils/extension.dart';
-
-import '../constant/constant.dart';
-
-/*
- * @Author: pony@diynova.com
- * @Date: 2022-05-16 18:36:04
- * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-06-02 14:06:07
- * @FilePath: /forcewallet/lib/page/import.dart
- * @Description: 
- */
+import '../app/constant/constant.dart';
+import '../app/database/database_manager.dart';
 
 import 'package:flutter_trust_wallet_core/protobuf/Ethereum.pb.dart'
     as Ethereum;
