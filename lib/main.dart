@@ -2,7 +2,7 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 16:13:37
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-06-02 15:08:24
+ * @LastEditTime: 2022-06-02 15:28:35
  * @FilePath: /forcewallet/lib/main.dart
  * @Description: 
  */
@@ -80,6 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
             MaterialButton(
                 onPressed: () => {Navigator.pushNamed(context, '/import')},
                 child: const Text('Import Wallet')),
+            MaterialButton(
+                onPressed: () => {Navigator.pushNamed(context, '/home')},
+                child: const Text('Go Home')),
           ],
         ),
       ),
