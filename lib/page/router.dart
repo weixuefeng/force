@@ -1,3 +1,9 @@
+import 'package:flutter/material.dart';
+
+import 'create.dart';
+import 'home.dart';
+import 'import.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:54:07
@@ -6,11 +12,6 @@
  * @FilePath: /tech_research/forcewallet/lib/page/router.dart
  * @Description: 
  */
-import 'package:flutter/material.dart';
-
-import 'create.dart';
-import 'home.dart';
-import 'import.dart';
 
 final routes = {
   "/create": (context) => const CreateWalletPage(),

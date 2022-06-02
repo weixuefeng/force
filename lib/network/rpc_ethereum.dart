@@ -1,3 +1,10 @@
+import 'dart:typed_data';
+
+import 'package:http/http.dart';
+import 'package:web3dart/web3dart.dart';
+
+import 'rpc_interface.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-05-17 17:56:48
@@ -6,12 +13,6 @@
  * @FilePath: /forcewallet/lib/network/rpc_ethereum.dart
  * @Description: 
  */
-import 'dart:typed_data';
-
-import 'package:http/http.dart';
-import 'package:web3dart/web3dart.dart';
-
-import 'rpc_interface.dart';
 
 class RpcEthereum extends RpcInterface {
   final mHttpClient = Client();

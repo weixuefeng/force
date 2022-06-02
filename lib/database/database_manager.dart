@@ -1,3 +1,6 @@
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-06-02 11:38:29
@@ -6,8 +9,6 @@
  * @FilePath: /forcewallet/lib/database/database_manager.dart
  * @Description: 
  */
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 
 class DataBaseManager {
   static const String mDbName = "forcewallet.db";

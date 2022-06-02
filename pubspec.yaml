@@ -43,6 +43,7 @@ dependencies:
       ref: 335ad1621b627bc7d5e23338e2ea9735ee997693
   sqflite: ^2.0.2+1
   path: ^1.8.2
+  get:
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

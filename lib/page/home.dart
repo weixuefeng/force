@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
@@ -6,8 +10,6 @@
  * @FilePath: /forcewallet/lib/page/home.dart
  * @Description: 
  */
-import 'package:flutter/material.dart';
-import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

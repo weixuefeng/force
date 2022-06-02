@@ -1,3 +1,18 @@
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+
+import 'package:convert/convert.dart';
+import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
+import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:web3dart/web3dart.dart';
+
+import 'package:forcewallet/database/database_manager.dart';
+import 'package:forcewallet/network/rpc_ethereum.dart';
+import 'package:forcewallet/utils/extension.dart';
+
+import '../constant/constant.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
@@ -6,20 +21,9 @@
  * @FilePath: /forcewallet/lib/page/import.dart
  * @Description: 
  */
-import 'dart:typed_data';
 
-import 'package:convert/convert.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/protobuf/Ethereum.pb.dart'
     as Ethereum;
-import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
-import 'package:forcewallet/database/database_manager.dart';
-import 'package:forcewallet/network/rpc_ethereum.dart';
-import 'package:forcewallet/utils/extension.dart';
-import 'package:web3dart/web3dart.dart';
-
-import '../constant/constant.dart';
 
 class ImportWalletPage extends StatefulWidget {
   const ImportWalletPage({Key? key}) : super(key: key);

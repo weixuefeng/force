@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+
+import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
+import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
@@ -6,9 +11,6 @@
  * @FilePath: /tech_research/forcewallet/lib/page/create.dart
  * @Description: 
  */
-import 'package:flutter/material.dart';
-import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
-import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
 
 class CreateWalletPage extends StatefulWidget {
   const CreateWalletPage({Key? key}) : super(key: key);

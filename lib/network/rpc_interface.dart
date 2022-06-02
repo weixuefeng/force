@@ -1,3 +1,7 @@
+import 'dart:typed_data';
+
+import 'package:web3dart/web3dart.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-05-17 17:55:00
@@ -6,9 +10,6 @@
  * @FilePath: /forcewallet/lib/network/rpc_interface.dart
  * @Description: 
  */
-import 'dart:typed_data';
-
-import 'package:web3dart/web3dart.dart';
 
 abstract class RpcInterface {
   Future<BigInt?> getBalance(String address);

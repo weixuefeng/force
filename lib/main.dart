@@ -1,3 +1,11 @@
+import 'package:flutter/material.dart';
+
+import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
+
+import 'package:forcewallet/page/router.dart';
+
+import 'database/database_manager.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 16:13:37
@@ -6,11 +14,6 @@
  * @FilePath: /forcewallet/lib/main.dart
  * @Description: 
  */
-import 'package:flutter/material.dart';
-import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
-import 'package:forcewallet/page/router.dart';
-
-import 'database/database_manager.dart';
 
 void main() {
   runApp(const MyApp());

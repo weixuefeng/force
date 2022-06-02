@@ -1,3 +1,7 @@
+import 'dart:typed_data';
+
+import 'package:convert/convert.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-06-01 21:19:36
@@ -6,9 +10,6 @@
  * @FilePath: /forcewallet/lib/utils/extension.dart
  * @Description: 
  */
-import 'dart:typed_data';
-
-import 'package:convert/convert.dart';
 
 extension IntExtension on int {
   toUint8List() {
