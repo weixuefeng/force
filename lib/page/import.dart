@@ -2,7 +2,7 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-06-02 11:15:36
+ * @LastEditTime: 2022-06-02 11:32:21
  * @FilePath: /forcewallet/lib/page/import.dart
  * @Description: 
  */
@@ -106,6 +106,9 @@ class _CreateImportState extends State<ImportWalletPage> {
         master k1: 84519b8f82ea5ae0210baab002d188695fc3d08fd8c47e4b9fe56de25125dab3,
         master r1: 767e806a25a3acf709a452c1c615b448761337d409370a294cabba170d0be249
        */
+    var storeKey = StoredKey.importHDWallet(
+        mnemonic, "wallet", "password", TWCoinType.TWCoinTypeNewChain);
+    print(storeKey!.exportJson());
   }
 
   void importPrivate(String priv) {
@@ -131,6 +134,8 @@ class _CreateImportState extends State<ImportWalletPage> {
 
   void importJson(String json) {
     /// todo: check json
+    var storedKey = StoredKey.importJson(json);
+    print(storedKey!.exportJson());
   }
 
   void rpcRequest(address) async {
