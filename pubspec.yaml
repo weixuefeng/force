@@ -41,6 +41,8 @@ dependencies:
     git: 
       url: https://github.com/weixuefeng/flutter_trust_wallet_core_lib_include.git
       ref: 335ad1621b627bc7d5e23338e2ea9735ee997693
+  sqflite: ^2.0.2+1
+  path: ^1.8.2
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

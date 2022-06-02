@@ -2,7 +2,7 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-16 18:36:04
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-06-02 11:32:21
+ * @LastEditTime: 2022-06-02 14:06:07
  * @FilePath: /forcewallet/lib/page/import.dart
  * @Description: 
  */
@@ -14,6 +14,7 @@ import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/protobuf/Ethereum.pb.dart'
     as Ethereum;
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:forcewallet/database/database_manager.dart';
 import 'package:forcewallet/network/rpc_ethereum.dart';
 import 'package:forcewallet/utils/extension.dart';
 import 'package:web3dart/web3dart.dart';
@@ -77,7 +78,7 @@ class _CreateImportState extends State<ImportWalletPage> {
     }
   }
 
-  void importMnemonic(String mnemonic) {
+  void importMnemonic(String mnemonic) async {
     /// todo: check mnemonic
     var hdWallet = HDWallet.createWithMnemonic(mnemonic);
     var newAddress = hdWallet.getAddressForCoin(TWCoinType.TWCoinTypeNewChain);
@@ -109,6 +110,8 @@ class _CreateImportState extends State<ImportWalletPage> {
     var storeKey = StoredKey.importHDWallet(
         mnemonic, "wallet", "password", TWCoinType.TWCoinTypeNewChain);
     print(storeKey!.exportJson());
+    var id = await DataBaseManager.insertWallet(storeKey.exportJson()!);
+    print("insert: ${id}");
   }
 
   void importPrivate(String priv) {
@@ -120,7 +123,7 @@ class _CreateImportState extends State<ImportWalletPage> {
     print("count: $count");
     var json = storedKey?.exportJson();
     print(json);
-
+    DataBaseManager.insertWallet(json!);
     var privateKey = PrivateKey.createWithData(privateKeyData);
     var publicKey = privateKey.getPublicKey(3);
     print(publicKey);
