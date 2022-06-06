@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   RxList<StoredWalletInfo> walletInfos = <StoredWalletInfo>[].obs;
-  var content = "".obs;
 
   @override
   void onInit() {
