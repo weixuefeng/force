@@ -26,7 +26,10 @@ class HomeView extends GetView<HomeController> {
                                   .toCoinSymbol()),
                               Text(controller.walletInfos[i].showAddress!),
                               ElevatedButton(
-                                  onPressed: (() => {print("open detail")}),
+                                  onPressed: (() => {
+                                        controller.openWalletDetail(
+                                            controller.walletInfos[i])
+                                      }),
                                   child: Text("detail"))
                             ],
                           )

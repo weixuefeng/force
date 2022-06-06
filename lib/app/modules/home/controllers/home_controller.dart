@@ -1,4 +1,5 @@
 import 'package:forcewallet/app/database/store_model.dart';
+import 'package:forcewallet/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -21,5 +22,9 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void openWalletDetail(StoredWalletInfo info) {
+    Get.toNamed(Routes.WALLET, arguments: info);
   }
 }
