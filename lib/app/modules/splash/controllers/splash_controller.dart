@@ -1,27 +1,23 @@
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
-import 'package:forcewallet/app/modules/create/views/create_view.dart';
+import 'package:forcewallet/app/database/object_box.dart';
+import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/routes/app_pages.dart';
 import 'package:get/get.dart';
-
-import '../../../database/database_manager.dart';
-import '../../home/views/home_view.dart';
 
 class SplashController extends GetxController {
   var content = "".obs;
 
-  List<StoredKey> storeKeys = [];
+  List<StoredWalletInfo> infos = [];
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     FlutterTrustWalletCore.init();
-    DataBaseManager.init();
   }
 
   @override
   void onReady() {
     super.onReady();
-    print("get wallet check");
     getAllWallets();
   }
 
@@ -31,15 +27,9 @@ class SplashController extends GetxController {
   }
 
   void getAllWallets() async {
-    var wallets = await DataBaseManager.getAllWallets();
-    if (wallets != null && wallets.length > 0) {
-      wallets.forEach((wallet) {
-        var json = wallet['content'];
-        content.value = json;
-        var storeKey = StoredKey.importJson(json);
-        storeKeys.add(storeKey!);
-      });
-      Get.toNamed(Routes.HOME, arguments: storeKeys);
+    infos = await ObjectBox.queryWallets();
+    if (infos.isNotEmpty) {
+      Get.toNamed(Routes.HOME, arguments: infos);
     } else {
       Get.toNamed(Routes.CREATE);
     }

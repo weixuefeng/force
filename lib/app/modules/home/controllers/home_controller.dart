@@ -1,8 +1,8 @@
-import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
+import 'package:forcewallet/app/database/store_model.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  List<StoredKey> storeKeys = [];
+  RxList<StoredWalletInfo> walletInfos = <StoredWalletInfo>[].obs;
   var content = "".obs;
 
   @override
@@ -13,9 +13,8 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    storeKeys = Get.arguments;
-    StoredKey storeKey = storeKeys[0];
-    var count = storeKey.accountCount();
+    var a = Get.arguments;
+    walletInfos.value.addAll(a);
   }
 
   @override

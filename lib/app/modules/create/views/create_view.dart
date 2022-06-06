@@ -14,9 +14,11 @@ class CreateView extends GetView<CreateController> {
         centerTitle: true,
       ),
       body: Center(
-        child: Text(
-          'CreateView is working',
-          style: TextStyle(fontSize: 20),
+        child: ElevatedButton(
+          onPressed: () {
+            controller.createWallet();
+          },
+          child: Text("create"),
         ),
       ),
     );

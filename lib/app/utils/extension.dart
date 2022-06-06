@@ -1,13 +1,14 @@
 import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
+import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
 
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-06-01 21:19:36
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-06-02 11:09:46
- * @FilePath: /forcewallet/lib/utils/extension.dart
+ * @LastEditTime: 2022-06-06 15:43:56
+ * @FilePath: /forcewallet/lib/app/utils/extension.dart
  * @Description: 
  */
 
@@ -18,6 +19,16 @@ extension IntExtension on int {
       numStr = "0$numStr";
     }
     return numStr.toUint8List();
+  }
+
+  toCoinSymbol() {
+    switch (this) {
+      case TWCoinType.TWCoinTypeNewChain:
+        return "NEW";
+      case TWCoinType.TWCoinTypeEthereum:
+        return "ETH";
+    }
+    return "";
   }
 }
 
