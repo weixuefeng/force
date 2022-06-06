@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   RxList<StoredWalletInfo> walletInfos = <StoredWalletInfo>[].obs;
+  var selectedIndex = 0.obs;
 
   @override
   void onInit() {
@@ -26,5 +27,9 @@ class HomeController extends GetxController {
 
   void openWalletDetail(StoredWalletInfo info) {
     Get.toNamed(Routes.WALLET, arguments: info);
+  }
+
+  void onItemTapped(int index) {
+    selectedIndex.value = index;
   }
 }

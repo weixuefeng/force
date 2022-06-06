@@ -37,15 +37,21 @@ dependencies:
   convert: ^3.0.1
   web3dart: ^2.4.0
   http: ^0.13.4
+  # wallet core
   flutter_trust_wallet_core:
     git: 
       url: https://github.com/weixuefeng/flutter_trust_wallet_core_lib_include.git
       ref: 335ad1621b627bc7d5e23338e2ea9735ee997693
+  # sqlite
   sqflite: ^2.0.2+1
   path: ^1.8.2
+  # getx
   get:
+  # objectbox database
   objectbox: ^1.5.0
   objectbox_flutter_libs: any
+  # bottom bar
+  floating_frosted_bottom_bar: ^0.0.1
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
