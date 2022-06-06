@@ -3,5 +3,24 @@
     "login": "登录",
     "sign_in": "注册",
     "logout": "登出"
+  },
+  "settings": {
+    "wallet": {
+      "title": "钱包设置",
+      "wallet_account": "钱包与账户",
+      "observer_account": "观察钱包"
+    },
+    "secure" : {
+      "title": "安全设置",
+      "secure_setting": "安全设置",
+      "developer": "开发者选项",
+      "fiat": "法币单位"
+    },
+    "common" : {
+      "title": "公共设置",
+      "language": "语言",
+      "invite": "要求好友",
+      "about": "关于"
+    }
   }
 }

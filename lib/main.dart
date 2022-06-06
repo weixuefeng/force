@@ -2,7 +2,7 @@
  * @Author: pony@diynova.com
  * @Date: 2022-05-17 09:19:17
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-06-06 17:32:16
+ * @LastEditTime: 2022-06-06 20:52:31
  * @FilePath: /forcewallet/lib/main.dart
  * @Description: 
  */
@@ -19,6 +19,12 @@ void main() {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       translationsKeys: AppTranslation.translations,
+      locale: const Locale('en_US'),
+      fallbackLocale: const Locale("en_US"),
+      localeListResolutionCallback: (locales, supportedLocales) {
+        print('当前系统语言环境:$locales');
+        return;
+      },
     ),
   );
 }

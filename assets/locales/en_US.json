@@ -3,5 +3,24 @@
     "login": "Login",
     "sign_in": "Sign-in",
     "logout": "Logout"
+  },
+  "settings": {
+    "wallet": {
+      "title": "Wallet",
+      "wallet_account": "Wallet Account",
+      "observer_account": "Observer Account"
+    },
+    "secure" : {
+      "title": "Secure",
+      "secure_setting": "Secure Settings",
+      "developer": "Developer Options",
+      "fiat": "Fiat"
+    },
+    "common" : {
+      "title": "Common",
+      "language": "Language",
+      "invite": "Invite",
+      "about": "about"
+    }
   }
 }
