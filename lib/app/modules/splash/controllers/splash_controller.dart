@@ -29,7 +29,7 @@ class SplashController extends GetxController {
   void getAllWallets() async {
     infos = await ObjectBox.queryWallets();
     if (infos.isNotEmpty) {
-      Get.toNamed(Routes.HOME, arguments: infos);
+      Get.toNamed(Routes.MAIN, arguments: infos);
     } else {
       Get.toNamed(Routes.CREATE);
     }
