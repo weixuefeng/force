@@ -12,8 +12,10 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    var a = Get.arguments;
-    walletInfos.value.addAll(a);
+    var a = Get.arguments as List<StoredWalletInfo>;
+    a.forEach((element) {
+      walletInfos.add(element);
+    });
   }
 
   @override
