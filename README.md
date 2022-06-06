@@ -2,15 +2,10 @@
 
 A new Flutter project.
 
-## Getting Started
+## 依赖说明
+- [GetX](https://github.com/jonataslaw/getx/blob/master/README.zh-cn.md)
+- [GetX cli](https://github.com/jonataslaw/get_cli)
+- [flutter-wallet-core-lib](https://github.com/weixuefeng/flutter_trust_wallet_core_lib_include)
+- [trust-wallet](https://github.com/weixuefeng/wallet-core)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

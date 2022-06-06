@@ -1,0 +1,7 @@
+{
+  "buttons": {
+    "login": "登录",
+    "sign_in": "注册",
+    "logout": "登出"
+  }
+}
