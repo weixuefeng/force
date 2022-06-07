@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:forcewallet/app/modules/main/views/main_view.dart';
 import 'package:get/get.dart';
 
 import 'package:forcewallet/app/database/object_box.dart';
@@ -41,6 +42,7 @@ class CreateController extends GetxController {
     var ethWallet = generateEthAddress(ethAddress, id);
     ObjectBox.addWalletInfo(newWallet);
     ObjectBox.addWalletInfo(ethWallet);
+    Get.off(() => MainView());
   }
 
   StoredWalletInfo generateNewAddress(String hexAddress, int id) {

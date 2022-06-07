@@ -10,11 +10,13 @@ class MainController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print("main onInit");
   }
 
   @override
   void onReady() {
     super.onReady();
+    print("main onReady");
     var a = Get.arguments as List<StoredWalletInfo>;
     a.forEach((element) {
       walletInfos.add(element);
@@ -23,6 +25,7 @@ class MainController extends GetxController {
 
   @override
   void onClose() {
+    print("main close");
     super.onClose();
   }
 

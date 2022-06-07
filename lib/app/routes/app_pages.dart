@@ -33,16 +33,6 @@ class AppPages {
       binding: WalletBinding(),
     ),
     GetPage(
-      name: _Paths.SETTING,
-      page: () => const SettingView(),
-      binding: SettingBinding(),
-    ),
-    GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
-    ),
-    GetPage(
       name: _Paths.IMPORT,
       page: () => const ImportView(),
       binding: ImportBinding(),
@@ -58,10 +48,21 @@ class AppPages {
       binding: SplashBinding(),
     ),
     GetPage(
-      name: _Paths.MAIN,
-      page: () => const MainView(),
-      binding: MainBinding(),
-    ),
+        name: _Paths.MAIN,
+        page: () => const MainView(),
+        binding: MainBinding(),
+        children: [
+          GetPage(
+            name: _Paths.SETTING,
+            page: () => const SettingView(),
+            binding: SettingBinding(),
+          ),
+          GetPage(
+            name: _Paths.HOME,
+            page: () => const HomeView(),
+            binding: HomeBinding(),
+          ),
+        ]),
     GetPage(
       name: _Paths.SEND,
       page: () => const SendView(),

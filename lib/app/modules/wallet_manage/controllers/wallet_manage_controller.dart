@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class WalletManageController extends GetxController {
-  //TODO: Implement WalletManageController
-
   final count = 0.obs;
   @override
   void onInit() {
