@@ -14,7 +14,7 @@ class HomeView extends GetView<HomeController> {
             height: 200,
             child: PageView.builder(
               itemBuilder: (context, index) => _buildPageItem(index),
-              itemCount: 10,
+              itemCount: controller.walletInfos.length,
             )),
         Container(
           height: 200,
@@ -30,11 +30,22 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildPageItem(int index) {
-    return Container(
-      child: Center(
-        child: Text(
-          '$index',
-          style: TextStyle(fontSize: 50),
+    return Card(
+      color: Colors.blueAccent,
+      elevation: 2.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+      ),
+      clipBehavior: Clip.antiAlias,
+      semanticContainer: false,
+      child: Container(
+        width: 200,
+        height: 100,
+        child: Center(
+          child: Text(
+            '$index',
+            style: TextStyle(fontSize: 20.0),
+          ),
         ),
       ),
     );
