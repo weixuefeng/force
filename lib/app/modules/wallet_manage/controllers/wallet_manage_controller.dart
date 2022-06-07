@@ -1,10 +1,7 @@
-import 'dart:ui';
-
-import 'package:forcewallet/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
-class SettingController extends GetxController {
-  var mCurrentLanguate = "".obs;
+class WalletManageController extends GetxController {
+  //TODO: Implement WalletManageController
 
   final count = 0.obs;
   @override
@@ -23,8 +20,4 @@ class SettingController extends GetxController {
   }
 
   void increment() => count.value++;
-
-  void openWalletManage() {
-    Get.toNamed(Routes.WALLET_MANAGE);
-  }
 }

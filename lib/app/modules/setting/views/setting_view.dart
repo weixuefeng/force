@@ -19,6 +19,7 @@ class SettingView extends GetView<SettingController> {
             SettingsTile.navigation(
               leading: Icon(Icons.wallet),
               title: Text(LocaleKeys.settings_wallet_wallet_account.tr),
+              onPressed: (context) => {controller.openWalletManage()},
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.wallet),
@@ -51,7 +52,7 @@ class SettingView extends GetView<SettingController> {
             SettingsTile.navigation(
               leading: Icon(Icons.language),
               title: Text(LocaleKeys.settings_common_language.tr),
-              value: Text("english"),
+              value: Obx(() => Text("english ${controller.count.value}")),
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.inventory_2_outlined),

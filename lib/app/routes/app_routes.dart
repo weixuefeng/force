@@ -11,6 +11,7 @@ abstract class Routes {
   static const SPLASH = _Paths.SPLASH;
   static const MAIN = _Paths.MAIN;
   static const SEND = _Paths.SEND;
+  static const WALLET_MANAGE = _Paths.WALLET_MANAGE;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const SPLASH = '/splash';
   static const MAIN = '/main';
   static const SEND = '/send';
+  static const WALLET_MANAGE = '/wallet-manage';
 }

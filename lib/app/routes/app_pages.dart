@@ -16,6 +16,8 @@ import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
+import '../modules/wallet_manage/bindings/wallet_manage_binding.dart';
+import '../modules/wallet_manage/views/wallet_manage_view.dart';
 
 part 'app_routes.dart';
 
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.SEND,
       page: () => const SendView(),
       binding: SendBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET_MANAGE,
+      page: () => const WalletManageView(),
+      binding: WalletManageBinding(),
     ),
   ];
 }
