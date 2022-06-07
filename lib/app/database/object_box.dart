@@ -62,4 +62,12 @@ class ObjectBox {
     store.close();
     return storedKeyInfos;
   }
+
+  static Future<StoredKeyInfo> queryStoredinfo(int id) async {
+    final store = await openStore();
+    final box = store.box<StoredKeyInfo>();
+    final storedKeyInfos = box.get(id);
+    store.close();
+    return storedKeyInfos!;
+  }
 }

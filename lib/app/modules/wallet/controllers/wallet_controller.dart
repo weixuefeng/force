@@ -1,9 +1,10 @@
+import 'package:forcewallet/app/database/store_model.dart';
+import 'package:forcewallet/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class WalletController extends GetxController {
-  //TODO: Implement WalletController
+  final mStoredWalletInfo = StoredWalletInfo().obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -12,6 +13,7 @@ class WalletController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    mStoredWalletInfo.value = Get.arguments;
   }
 
   @override
@@ -19,5 +21,7 @@ class WalletController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void openSend() {
+    Get.toNamed(Routes.SEND, arguments: mStoredWalletInfo.value);
+  }
 }

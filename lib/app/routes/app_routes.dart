@@ -10,6 +10,7 @@ abstract class Routes {
   static const CREATE = _Paths.CREATE;
   static const SPLASH = _Paths.SPLASH;
   static const MAIN = _Paths.MAIN;
+  static const SEND = _Paths.SEND;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const CREATE = '/create';
   static const SPLASH = '/splash';
   static const MAIN = '/main';
+  static const SEND = '/send';
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forcewallet/app/utils/extension.dart';
 
 import 'package:get/get.dart';
 
@@ -13,12 +14,17 @@ class WalletView extends GetView<WalletController> {
         title: Text('WalletView'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'WalletView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: Column(children: [
+        Obx(() => Text(
+              'Symbol: ${controller.mStoredWalletInfo.value.coinType.toCoinSymbol()}\n\naddress:${controller.mStoredWalletInfo.value.showAddress}',
+              style: TextStyle(fontSize: 20),
+            )),
+        ElevatedButton(onPressed: () => {}, child: Text("transaction history")),
+        ElevatedButton(
+            onPressed: () => {controller.openSend()},
+            child: Text("send transaction")),
+        ElevatedButton(onPressed: () => {}, child: Text("receive address")),
+      ]),
     );
   }
 }
