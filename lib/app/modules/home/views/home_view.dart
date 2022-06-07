@@ -62,11 +62,16 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildWalletItem(StoredWalletInfo element) {
-    return Column(
-      children: [
-        Text(element.coinType.toCoinSymbol()),
-        Text(element.showAddress!),
-      ],
+    return Container(
+      child: Column(
+        children: [
+          Text(element.coinType.toCoinSymbol()),
+          Text(element.showAddress!),
+          ElevatedButton(
+              onPressed: (() => {controller.openWalletDetail(element)}),
+              child: Text("Open"))
+        ],
+      ),
     );
   }
 }
