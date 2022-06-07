@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/home/controllers/home_controller.dart';
+import 'package:forcewallet/app/utils/extension.dart';
 
 import 'package:get/get.dart';
 
@@ -12,18 +14,26 @@ class HomeView extends GetView<HomeController> {
       children: [
         Container(
             height: 200,
-            child: PageView.builder(
-              itemBuilder: (context, index) => _buildPageItem(index),
-              itemCount: controller.walletInfos.length,
-            )),
+            child: Obx(() => PageView.builder(
+                  onPageChanged: (value) {
+                    controller
+                        .setCurrentWalletId(controller.storedInfos[value].id);
+                  },
+                  itemBuilder: (context, index) => _buildPageItem(index),
+                  itemCount: controller.storedInfos.length,
+                ))),
         Container(
           height: 200,
-          child: ListView(
-            children: [
-              for (var i = 0; i < controller.walletInfos.length; i++)
-                Text("data")
-            ],
-          ),
+          child: Obx(() => ListView(
+                children: controller
+                            .walletInfoMap[controller.mCurrentWalletId.value] ==
+                        null
+                    ? [Text("error data")]
+                    : controller
+                        .walletInfoMap[controller.mCurrentWalletId.value]!
+                        .map((element) => _buildWalletItem(element))
+                        .toList(),
+              )),
         )
       ],
     );
@@ -48,6 +58,15 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildWalletItem(StoredWalletInfo element) {
+    return Column(
+      children: [
+        Text(element.coinType.toCoinSymbol()),
+        Text(element.showAddress!),
+      ],
     );
   }
 }

@@ -1,10 +1,13 @@
+import 'package:forcewallet/app/database/object_box.dart';
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  RxList<StoredWalletInfo> walletInfos = <StoredWalletInfo>[].obs;
+  var storedInfos = <StoredKeyInfo>[].obs;
+  var walletInfoMap = <int, List<StoredWalletInfo>>{}.obs;
   var selectedIndex = 0.obs;
+  var mCurrentWalletId = 0.obs;
 
   @override
   void onInit() {
@@ -12,11 +15,17 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-    var a = Get.arguments as List<StoredWalletInfo>;
-    a.forEach((element) {
-      walletInfos.add(element);
+    var walletInfos = await ObjectBox.queryWallets();
+    walletInfos.forEach((element) {
+      walletInfoMap[element.parentId] ??= [];
+      walletInfoMap[element.parentId]!.add(element);
+    });
+    print(walletInfoMap);
+    var storedKeyInfos = await ObjectBox.queryStoredinfos();
+    storedKeyInfos.forEach((element) {
+      storedInfos.add(element);
     });
   }
 
@@ -31,5 +40,9 @@ class HomeController extends GetxController {
 
   void onItemTapped(int index) {
     selectedIndex.value = index;
+  }
+
+  void setCurrentWalletId(int id) {
+    mCurrentWalletId.value = id;
   }
 }

@@ -54,4 +54,12 @@ class ObjectBox {
     store.close();
     return storeWalletInfos;
   }
+
+  static Future<List<StoredKeyInfo>> queryStoredinfos() async {
+    final store = await openStore();
+    final box = store.box<StoredKeyInfo>();
+    final storedKeyInfos = box.getAll();
+    store.close();
+    return storedKeyInfos;
+  }
 }
