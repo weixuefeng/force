@@ -1,3 +1,7 @@
+import 'package:get/get.dart';
+
+import '../controllers/create_controller.dart';
+
 /*
  * @Author: pony@diynova.com
  * @Date: 2022-06-02 17:22:25
@@ -6,9 +10,6 @@
  * @FilePath: /forcewallet/lib/app/modules/create/bindings/create_binding.dart
  * @Description: 
  */
-import 'package:get/get.dart';
-
-import '../controllers/create_controller.dart';
 
 class CreateBinding extends Bindings {
   String a = "";

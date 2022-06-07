@@ -1,6 +1,7 @@
+import 'package:get/get.dart';
+
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/routes/app_pages.dart';
-import 'package:get/get.dart';
 
 class MainController extends GetxController {
   RxList<StoredWalletInfo> walletInfos = <StoredWalletInfo>[].obs;

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
 import 'package:forcewallet/app/modules/home/views/home_view.dart';
 import 'package:forcewallet/app/modules/setting/views/setting_view.dart';
 import 'package:forcewallet/app/utils/extension.dart';
-
-import 'package:get/get.dart';
 
 import '../controllers/main_controller.dart';
 

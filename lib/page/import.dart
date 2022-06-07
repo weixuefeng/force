@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:convert/convert.dart';
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:web3dart/web3dart.dart';
+
 import 'package:forcewallet/app/network/rpc_ethereum.dart';
 import 'package:forcewallet/app/utils/extension.dart';
-import 'package:web3dart/web3dart.dart';
 
 import '../app/constant/constant.dart';
 import '../app/database/database_manager.dart';

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/home/controllers/home_controller.dart';
 import 'package:forcewallet/app/utils/extension.dart';
-
-import 'package:get/get.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);

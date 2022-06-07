@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:forcewallet/generated/locales.g.dart';
 
 import 'package:get/get.dart';
+import 'package:settings_ui/settings_ui.dart';
+
+import 'package:forcewallet/generated/locales.g.dart';
 
 import '../controllers/setting_controller.dart';
-import 'package:settings_ui/settings_ui.dart';
 
 class SettingView extends GetView<SettingController> {
   const SettingView({Key? key}) : super(key: key);
