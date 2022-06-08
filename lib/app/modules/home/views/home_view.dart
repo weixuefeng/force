@@ -5,42 +5,59 @@ import 'package:get/get.dart';
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/home/controllers/home_controller.dart';
 import 'package:forcewallet/app/utils/extension.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-            height: 200,
-            child: Obx(() => PageView.builder(
-                  onPageChanged: (value) {
-                    controller
-                        .setCurrentWalletId(controller.storedInfos[value].id);
-                  },
-                  itemBuilder: (context, index) => _buildPageItem(index),
-                  itemCount: controller.storedInfos.length,
-                ))),
-        Container(
-          height: 200,
-          child: Obx(() => ListView(
-                children: controller
-                            .walletInfoMap[controller.mCurrentWalletId.value] ==
-                        null
-                    ? [Text("error data")]
-                    : controller
-                        .walletInfoMap[controller.mCurrentWalletId.value]!
-                        .map((element) => _buildWalletItem(element))
-                        .toList(),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Home',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               )),
-        )
-      ],
-    );
+          centerTitle: true,
+          backgroundColor: Colors.white,
+        ),
+        body: Column(
+          children: [
+            CarouselSlider(
+              options: CarouselOptions(
+                  autoPlay: false,
+                  enlargeCenterPage: true,
+                  aspectRatio: 2.0,
+                  enableInfiniteScroll: false,
+                  onPageChanged: (index, reason) {
+                    controller
+                        .setCurrentWalletId(controller.storedInfos[index].id);
+                  }),
+              items: controller.storedInfos.map((info) {
+                return _buildPageItem(info);
+              }).toList(),
+            ),
+            Container(
+              height: 200,
+              child: Obx(() => ListView(
+                    children: controller.walletInfoMap[
+                                controller.mCurrentWalletId.value] ==
+                            null
+                        ? [Text("error data")]
+                        : controller
+                            .walletInfoMap[controller.mCurrentWalletId.value]!
+                            .map((element) => _buildWalletItem(element))
+                            .toList(),
+                  )),
+            )
+          ],
+        ));
   }
 
-  Widget _buildPageItem(int index) {
+  Widget _buildPageItem(StoredKeyInfo info) {
+    final id = info.id.toString();
     return Card(
       color: Colors.blueAccent,
       elevation: 2.0,
@@ -50,11 +67,11 @@ class HomeView extends GetView<HomeController> {
       clipBehavior: Clip.antiAlias,
       semanticContainer: false,
       child: Container(
-        width: 200,
+        width: 400,
         height: 100,
         child: Center(
           child: Text(
-            '$index',
+            'Wallet $id',
             style: TextStyle(fontSize: 20.0),
           ),
         ),

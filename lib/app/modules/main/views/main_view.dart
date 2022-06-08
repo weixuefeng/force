@@ -24,10 +24,7 @@ class MainView extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('MainView'),
-        centerTitle: true,
-      ),
+      appBar: null,
       body: Obx(() => getWidgetByIndex()),
       bottomNavigationBar: Obx(() => BottomNavigationBar(
             items: const <BottomNavigationBarItem>[

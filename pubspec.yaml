@@ -54,6 +54,7 @@ dependencies:
   floating_frosted_bottom_bar: ^0.0.1
   # setting ui
   settings_ui: ^2.0.2
+  carousel_slider: ^4.1.1
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
