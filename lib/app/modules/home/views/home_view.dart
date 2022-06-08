@@ -25,22 +25,26 @@ class HomeView extends GetView<HomeController> {
         ),
         body: Column(
           children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                  autoPlay: false,
-                  enlargeCenterPage: true,
-                  aspectRatio: 2.0,
-                  enableInfiniteScroll: false,
-                  onPageChanged: (index, reason) {
-                    controller
-                        .setCurrentWalletId(controller.storedInfos[index].id);
-                  }),
-              items: controller.storedInfos.map((info) {
-                return _buildPageItem(info);
-              }).toList(),
+            Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: CarouselSlider(
+                options: CarouselOptions(
+                    autoPlay: false,
+                    enlargeCenterPage: true,
+                    aspectRatio: 2.0,
+                    enableInfiniteScroll: false,
+                    onPageChanged: (index, reason) {
+                      controller
+                          .setCurrentWalletId(controller.storedInfos[index].id);
+                    }),
+                items: controller.storedInfos.map((info) {
+                  return _buildPageItem(info);
+                }).toList(),
+              ),
             ),
             Container(
               height: 200,
+              margin: const EdgeInsets.only(top: 20),
               child: Obx(() => ListView(
                     children: controller.walletInfoMap[
                                 controller.mCurrentWalletId.value] ==
