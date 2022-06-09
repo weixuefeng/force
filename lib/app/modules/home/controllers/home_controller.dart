@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   var walletInfoMap = <int, List<StoredWalletInfo>>{}.obs;
   var selectedIndex = 0.obs;
   var mCurrentWalletId = 0.obs;
-  var selectedChain = 0.obs; /// 0: ALL, 1: NEW, 2: ETH
+  var selectedChain = 0.obs; /// 1: ALL, 2: NEW, 3: ETH
 
   @override
   void onInit() {
