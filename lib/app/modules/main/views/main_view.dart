@@ -48,27 +48,3 @@ class MainView extends GetView<MainController> {
     );
   }
 }
-
-/**
- * Column(children: [
-        controller.walletInfos.length == 0
-            ? Text("data")
-            : Column(
-                children: [
-                  for (var i = 0; i < controller.walletInfos.length; i++)
-                    Column(
-                      children: [
-                        Text(controller.walletInfos[i].coinType.toCoinSymbol()),
-                        Text(controller.walletInfos[i].showAddress!),
-                        ElevatedButton(
-                            onPressed: (() => {
-                                  controller.openWalletDetail(
-                                      controller.walletInfos[i])
-                                }),
-                            child: Text("detail"))
-                      ],
-                    )
-                ],
-              )
-      ])
- */

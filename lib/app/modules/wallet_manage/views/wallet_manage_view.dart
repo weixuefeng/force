@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:forcewallet/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
+
+import 'package:forcewallet/app/routes/app_pages.dart';
 
 import '../controllers/wallet_manage_controller.dart';
 
@@ -18,7 +19,11 @@ class WalletManageView extends GetView<WalletManageController> {
         children: [
           ElevatedButton(
               onPressed: () => {Get.toNamed(Routes.CREATE)},
-              child: Obx(() => Text("create wallet ${controller.count.value}")))
+              child:
+                  Obx(() => Text("create wallet ${controller.count.value}"))),
+          ElevatedButton(
+              onPressed: () => {controller.clearWallet()},
+              child: Obx(() => Text("clear wallet ${controller.count.value}")))
         ],
       ),
     );

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/home/controllers/home_controller.dart';
+import 'package:forcewallet/app/service/wallet_service.dart';
 import 'package:forcewallet/app/utils/extension.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:path/path.dart';
@@ -13,6 +15,7 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    WalletService service = Get.find<WalletService>();
     return Scaffold(
         appBar: AppBar(
           title: Text('Home',
@@ -36,8 +39,8 @@ class HomeView extends GetView<HomeController> {
                     enableInfiniteScroll: false,
                     viewportFraction: 0.85,
                     onPageChanged: (index, reason) {
-                      controller
-                          .setCurrentWalletId(controller.storedInfos[index].id);
+                      service.setCurrentWalletId(
+                          service.mStoredKeyInfos[index].id);
                     }),
                 items: getList(),
               ),
@@ -46,12 +49,12 @@ class HomeView extends GetView<HomeController> {
               height: 200,
               margin: const EdgeInsets.only(top: 20),
               child: Obx(() => ListView(
-                    children: controller.walletInfoMap[
-                                controller.mCurrentWalletId.value] ==
+                    children: service.mStoredWalletMap.value[
+                                service.mCurrentWalletId.value] ==
                             null
                         ? [Text("error data")]
-                        : controller
-                            .walletInfoMap[controller.mCurrentWalletId.value]!
+                        : service
+                            .mStoredWalletMap.value[service.mCurrentWalletId.value]!
                             .map((element) => _buildWalletItem(element))
                             .toList(),
                   )),
@@ -75,6 +78,8 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildPageItem(int index, StoredKeyInfo info) {
+    WalletService service = Get.find<WalletService>();
+
     final id = info.id.toString();
     final list = [
       {'asset': 'images/all.png'},
@@ -135,7 +140,7 @@ class HomeView extends GetView<HomeController> {
                 child: Container(
                   margin: const EdgeInsets.only(left: 16, top: 16),
                   child: Column(
-                      children: controller.walletInfoMap[index + 1] == null
+                      children: service.mStoredWalletMap.value[index + 1] == null
                           ? []
                           : [
                               Obx(() => Container(
@@ -172,12 +177,13 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildAddressItem(int index) {
+    final WalletService service = Get.find<WalletService>();
     if (controller.selectedChain == 0 ||
-        controller.walletInfoMap[index] == null) {
+        service.mStoredWalletMap.value[index] == null) {
       return Text('');
     } else {
       Widget w = Text('');
-      controller.walletInfoMap[index]!.forEach((element) {
+      service.mStoredWalletMap.value[index]!.forEach((element) {
         if (controller.selectedChain == 2 &&
             element.coinType.toCoinSymbol() == "NEW") {
           w = Row(children: [
@@ -226,8 +232,9 @@ class HomeView extends GetView<HomeController> {
   }
 
   List<Widget> getList() {
+    final WalletService service = Get.find<WalletService>();
     List<Widget> list = [];
-    controller.storedInfos
+    service.mStoredKeyInfos.value
         .asMap()
         .forEach((index, value) => {list.add(_buildPageItem(index, value))});
     return list;

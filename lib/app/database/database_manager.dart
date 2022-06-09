@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
  * @Author: pony@diynova.com
  * @Date: 2022-06-02 11:38:29
  * @LastEditors: pony@diynova.com
- * @LastEditTime: 2022-06-04 15:40:32
+ * @LastEditTime: 2022-06-09 16:26:58
  * @FilePath: /forcewallet/lib/app/database/database_manager.dart
  * @Description: 
  */
@@ -15,15 +15,6 @@ class DataBaseManager {
 
   static const String mCreateStoreKeySQL =
       "CREATE TABLE store(id INTEGER PRIMARY KEY, content TEXT)";
-  /**
-   *   int id = 0;
-        int coinType = 0;
-        String? showAddress;
-        String? originAddress;
-        String? balance;
-        bool isContract = false;
-        String? contractAddress;
-   */
   static const String mCreateWalletSQL =
       "CREATE TABLE wallet(id INTEGER PRIMARY KEY, content TEXT)";
 

@@ -6,6 +6,7 @@ import '../controllers/create_controller.dart';
 
 class CreateView extends GetView<CreateController> {
   const CreateView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
