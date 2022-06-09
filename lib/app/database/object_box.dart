@@ -70,4 +70,14 @@ class ObjectBox {
     store.close();
     return storedKeyInfos!;
   }
+
+  static Future<int> clear() async {
+    final store = await openStore();
+    final box = store.box<StoredKeyInfo>();
+    var int = box.removeAll();
+    final box2 = store.box<StoredWalletInfo>();
+    var int2 = box2.removeAll();
+    store.close();
+    return int2;
+  }
 }

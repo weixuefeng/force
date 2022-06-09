@@ -1,3 +1,5 @@
+import 'package:forcewallet/app/database/object_box.dart';
+import 'package:forcewallet/app/modules/splash/views/splash_view.dart';
 import 'package:get/get.dart';
 
 class WalletManageController extends GetxController {
@@ -18,4 +20,9 @@ class WalletManageController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  clearWallet() async {
+    var res = await ObjectBox.clear();
+    Get.off(() => SplashView());
+  }
 }

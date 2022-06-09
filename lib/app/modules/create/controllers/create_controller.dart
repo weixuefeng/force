@@ -42,7 +42,7 @@ class CreateController extends GetxController {
     var ethWallet = generateEthAddress(ethAddress, id);
     ObjectBox.addWalletInfo(newWallet);
     ObjectBox.addWalletInfo(ethWallet);
-    Get.off(() => MainView());
+    Get.off(() => MainView(), preventDuplicates: false);
   }
 
   StoredWalletInfo generateNewAddress(String hexAddress, int id) {
