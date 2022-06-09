@@ -9,6 +9,7 @@ class HomeController extends GetxController {
   var walletInfoMap = <int, List<StoredWalletInfo>>{}.obs;
   var selectedIndex = 0.obs;
   var mCurrentWalletId = 0.obs;
+  var selectedChain = 0.obs; /// 0: ALL, 1: NEW, 2: ETH
 
   @override
   void onInit() {
@@ -41,6 +42,10 @@ class HomeController extends GetxController {
 
   void onItemTapped(int index) {
     selectedIndex.value = index;
+  }
+
+  void onChainTapped(int index) {
+    selectedChain.value = index;
   }
 
   void setCurrentWalletId(int id) {
