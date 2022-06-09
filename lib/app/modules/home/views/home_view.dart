@@ -49,12 +49,12 @@ class HomeView extends GetView<HomeController> {
               height: 200,
               margin: const EdgeInsets.only(top: 20),
               child: Obx(() => ListView(
-                    children: service.mStoredWalletMap.value[
-                                service.mCurrentWalletId.value] ==
+                    children: service.mStoredWalletMap
+                                .value[service.mCurrentWalletId.value] ==
                             null
                         ? [Text("error data")]
-                        : service
-                            .mStoredWalletMap.value[service.mCurrentWalletId.value]!
+                        : service.mStoredWalletMap
+                            .value[service.mCurrentWalletId.value]!
                             .map((element) => _buildWalletItem(element))
                             .toList(),
                   )),
@@ -113,7 +113,7 @@ class HomeView extends GetView<HomeController> {
                   child: Text(
                     '账户 $id',
                     style: TextStyle(
-                      fontSize: 16.0,
+                      fontSize: 14.0,
                       color: Colors.white,
                     ),
                     textAlign: TextAlign.left,
@@ -127,7 +127,7 @@ class HomeView extends GetView<HomeController> {
                   child: Text(
                     '\$0.00',
                     style: TextStyle(
-                      fontSize: 32.0,
+                      fontSize: 30.0,
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
                     ),
@@ -140,21 +140,22 @@ class HomeView extends GetView<HomeController> {
                 child: Container(
                   margin: const EdgeInsets.only(left: 16, top: 16),
                   child: Column(
-                      children: service.mStoredWalletMap.value[index + 1] == null
-                          ? []
-                          : [
-                              Obx(() => Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.only(
-                                        left: 4.0, right: 4.0),
-                                    child: _buildAddressItem(index + 1),
-                                  )),
-                            ]),
+                      children:
+                          service.mStoredWalletMap.value[index + 1] == null
+                              ? []
+                              : [
+                                  Obx(() => Container(
+                                        width: double.infinity,
+                                        padding: const EdgeInsets.only(
+                                            left: 4.0, right: 4.0),
+                                        child: _buildAddressItem(index + 1),
+                                      )),
+                                ]),
                 ),
               ),
               Container(
                 height: 36,
-                margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                margin: const EdgeInsets.only(left: 16, right: 16, top: 32),
                 width: double.infinity,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -184,32 +185,47 @@ class HomeView extends GetView<HomeController> {
     } else {
       Widget w = Text('');
       service.mStoredWalletMap.value[index]!.forEach((element) {
+        final addrL = element.showAddress!.substring(0, 10);
+        final addrR =
+            element.showAddress!.substring(element.showAddress!.length - 10);
         if (controller.selectedChain == 2 &&
             element.coinType.toCoinSymbol() == "NEW") {
           w = Row(children: [
             Text(
-              element.showAddress!,
+              "$addrL...$addrR",
               style: TextStyle(color: Colors.white, fontSize: 12),
             ),
-            // Container(
-            //   // width: 100,
-            //   height: 16,
-            //   margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-            //   child: InkWell(
-            //     onTap: () => {},
-            //     child: Image(
-            //       image: AssetImage("images/eth.png"),
-            //     ),
-            //   ),
-            // ),
-
+            Container(
+              // width: 100,
+              height: 16,
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: InkWell(
+                onTap: () => {},
+                child: Image(
+                  image: AssetImage("images/eth.png"),
+                ),
+              ),
+            ),
           ]);
         } else if (controller.selectedChain == 3 &&
             element.coinType.toCoinSymbol() == "ETH") {
-          w = Text(
-            element.showAddress!,
-            style: TextStyle(color: Colors.white, fontSize: 12),
-          );
+          w = Row(children: [
+            Text(
+              "$addrL...$addrR",
+              style: TextStyle(color: Colors.white, fontSize: 12),
+            ),
+            Container(
+              // width: 100,
+              height: 16,
+              margin: EdgeInsets.fromLTRB(4, 0, 0, 0),
+              child: InkWell(
+                onTap: () => {},
+                child: Image(
+                  image: AssetImage("images/copy.png"),
+                ),
+              ),
+            ),
+          ]);
         }
       });
 

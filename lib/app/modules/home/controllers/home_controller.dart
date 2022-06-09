@@ -5,7 +5,7 @@ import 'package:forcewallet/app/routes/app_pages.dart';
 
 class HomeController extends GetxController {
   var selectedIndex = 0.obs;
-  var selectedChain = 0.obs;
+  var selectedChain = 1.obs;
 
   /// 0: ALL, 1: NEW, 2: ETH
 
