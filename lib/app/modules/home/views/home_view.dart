@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/home/controllers/home_controller.dart';
+import 'package:forcewallet/app/service/wallet_service.dart';
 import 'package:forcewallet/app/utils/extension.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    WalletService service = Get.find<WalletService>();
     return Scaffold(
         appBar: AppBar(
           title: Text('Home',
@@ -35,8 +37,8 @@ class HomeView extends GetView<HomeController> {
                     enableInfiniteScroll: false,
                     viewportFraction: 0.85,
                     onPageChanged: (index, reason) {
-                      controller
-                          .setCurrentWalletId(controller.storedInfos[index].id);
+                      service.setCurrentWalletId(
+                          service.mStoredKeyInfos[index].id);
                     }),
                 items: getList(),
               ),
@@ -45,12 +47,12 @@ class HomeView extends GetView<HomeController> {
               height: 200,
               margin: const EdgeInsets.only(top: 20),
               child: Obx(() => ListView(
-                    children: controller.walletInfoMap[
-                                controller.mCurrentWalletId.value] ==
+                    children: service.mStoredWalletMap[
+                                service.mCurrentWalletId.value] ==
                             null
                         ? [Text("error data")]
-                        : controller
-                            .walletInfoMap[controller.mCurrentWalletId.value]!
+                        : service
+                            .mStoredWalletMap[service.mCurrentWalletId.value]!
                             .map((element) => _buildWalletItem(element))
                             .toList(),
                   )),
@@ -183,10 +185,10 @@ class HomeView extends GetView<HomeController> {
   }
 
   List<Widget> getList() {
-
-    return controller.storedInfos.map((info, {index}) {
-                  return _buildPageItem(info);
-                }).toList();
+    final WalletService service = Get.find<WalletService>();
+    return service.mStoredKeyInfos.value.map((info, {index}) {
+      return _buildPageItem(info);
+    }).toList();
   }
 }
 
@@ -211,14 +213,14 @@ class Button extends StatelessWidget {
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
-        backgroundColor: MaterialStateProperty.all(
-            isSelected ? Color.fromRGBO(255, 255, 255, 0.8) : Color.fromRGBO(255, 255, 255, 0.2)),
+        backgroundColor: MaterialStateProperty.all(isSelected
+            ? Color.fromRGBO(255, 255, 255, 0.8)
+            : Color.fromRGBO(255, 255, 255, 0.2)),
       ),
       child: Image.asset(
         title,
         fit: BoxFit.fill,
       ),
-
       onPressed: () {
         Scrollable.ensureVisible(
           context,

@@ -1,9 +1,11 @@
+import 'package:get/get.dart';
+
 import 'package:forcewallet/app/database/store_model.dart';
+import 'package:forcewallet/app/service/wallet_service.dart';
 import 'package:forcewallet/objectbox.g.dart';
 
 class ObjectBox {
   late final Store store;
-
   ObjectBox._create(this.store) {
     // Add any additional setup code, e.g. build queries.
   }

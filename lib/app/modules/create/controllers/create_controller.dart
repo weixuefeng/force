@@ -2,11 +2,12 @@ import 'dart:ffi';
 
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
-import 'package:forcewallet/app/modules/main/views/main_view.dart';
 import 'package:get/get.dart';
 
-import 'package:forcewallet/app/database/object_box.dart';
 import 'package:forcewallet/app/database/store_model.dart';
+import 'package:forcewallet/app/modules/main/bindings/main_binding.dart';
+import 'package:forcewallet/app/modules/main/views/main_view.dart';
+import 'package:forcewallet/app/service/wallet_service.dart';
 
 class CreateController extends GetxController {
   final count = 0.obs;
@@ -28,6 +29,7 @@ class CreateController extends GetxController {
   void increment() => count.value++;
 
   void createWallet() async {
+    var service = Get.find<WalletService>();
     var wallet = HDWallet();
     var storeKey = StoredKey.importHDWallet(
         wallet.mnemonic(), "name", "11111111", TWCoinType.TWCoinTypeNewChain);
@@ -35,14 +37,12 @@ class CreateController extends GetxController {
     var ethAddress = wallet.getAddressForCoin(TWCoinType.TWCoinTypeEthereum);
     var storeKeyInfo = StoredKeyInfo();
     storeKeyInfo.text = storeKey!.exportJson();
-
-    var id = await ObjectBox.insertStoreKey(storeKeyInfo);
-
+    var id = await service.addStoreInfo(storeKeyInfo);
     var newWallet = generateNewAddress(newAddress, id);
     var ethWallet = generateEthAddress(ethAddress, id);
-    ObjectBox.addWalletInfo(newWallet);
-    ObjectBox.addWalletInfo(ethWallet);
-    Get.off(() => MainView(), preventDuplicates: false);
+    var newWalletId = await service.addWalletInfo(newWallet);
+    var ethWalletId = await service.addWalletInfo(ethWallet);
+    Get.off(() => MainView(), preventDuplicates: false, binding: MainBinding());
   }
 
   StoredWalletInfo generateNewAddress(String hexAddress, int id) {

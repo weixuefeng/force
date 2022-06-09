@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:forcewallet/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
+
+import 'package:forcewallet/app/routes/app_pages.dart';
 
 import '../controllers/wallet_manage_controller.dart';
 
