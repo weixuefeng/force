@@ -38,8 +38,6 @@ class SplashController extends GetxController {
     var service = Get.find<WalletService>();
     await service.initData();
     var isEmptyWallet = service.mWalletInfos.value.isEmpty;
-    print("isEmpty: ${isEmptyWallet}");
-    print(service.mWalletInfos.hashCode);
     if (isEmptyWallet) {
       Get.off(() => CreateView(),
           preventDuplicates: false, binding: CreateBinding());

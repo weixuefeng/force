@@ -75,9 +75,48 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:259401870422005089",
+      "lastPropertyId": "6:1982127875966194076",
+      "name": "NetworkConfig",
+      "properties": [
+        {
+          "id": "1:1676664380910775750",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2179145355925443637",
+          "name": "coinType",
+          "type": 6
+        },
+        {
+          "id": "3:1342608219483129888",
+          "name": "networkId",
+          "type": 6
+        },
+        {
+          "id": "4:134270256037521864",
+          "name": "networkName",
+          "type": 9
+        },
+        {
+          "id": "5:6792237036285741199",
+          "name": "rpcUrl",
+          "type": 9
+        },
+        {
+          "id": "6:1982127875966194076",
+          "name": "isDefault",
+          "type": 1
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:1472279463394629183",
+  "lastEntityId": "4:259401870422005089",
   "lastIndexId": "0:0",
   "lastRelationId": "1:3376599098898809943",
   "lastSequenceId": "0:0",

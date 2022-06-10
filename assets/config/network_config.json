@@ -1,0 +1,44 @@
+[
+  {
+    "networkName" : "Newton Devnet",
+    "networkId": 1002,
+    "coinType": 1642,
+    "rpcUrl": "https://devnet.newchain.cloud.diynova.com",
+    "isDefault": false
+  },
+  {
+    "networkName" : "Newton TestNet",
+    "networkId": 1007,
+    "coinType": 1642,
+    "rpcUrl": "https://rpc3.newchain.cloud.diynova.com/",
+    "isDefault": true
+  },
+  {
+    "networkName" : "Newton MainNet",
+    "networkId": 1012,
+    "coinType": 1642,
+    "rpcUrl": "https://jp.rpc.mainnet.newtonproject.org/",
+    "isDefault": false
+  },
+  {
+    "networkName" : "Ethereum RinkbyTest",
+    "networkId": 0,
+    "coinType": 40,
+    "rpcUrl": "https://rinkeby.infura.io/v3/3e92ec988e004b09ad2ad8a677d5e0ef",
+    "isDefault": false
+  },
+  {
+    "networkName" : "Ethereum RopstenTest",
+    "networkId": 1002,
+    "coinType": 0,
+    "rpcUrl": "https://ropsten.infura.io/v3/3e92ec988e004b09ad2ad8a677d5e0ef",
+    "isDefault": true
+  },
+  {
+    "networkName" : "Ethremum MainNet",
+    "networkId": 0,
+    "coinType": 40,
+    "rpcUrl": "https://mainnet.infura.io/v3/3e92ec988e004b09ad2ad8a677d5e0ef",
+    "isDefault": false
+  }
+]
