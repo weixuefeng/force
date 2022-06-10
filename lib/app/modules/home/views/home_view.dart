@@ -27,7 +27,7 @@ class HomeView extends GetView<HomeController> {
           centerTitle: true,
           backgroundColor: Colors.white,
         ),
-        body: Column(
+        body: ListView(
           children: [
             Container(
               margin: const EdgeInsets.only(top: 20),
@@ -46,17 +46,11 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             Container(
-              height: 200,
+              color: Colors.blue,
+              height: double.maxFinite,
               margin: const EdgeInsets.only(top: 20),
               child: Obx(() => ListView(
-                    children: service.mStoredWalletMap
-                                .value[service.mCurrentWalletId.value] ==
-                            null
-                        ? [Text("error data")]
-                        : service.mStoredWalletMap
-                            .value[service.mCurrentWalletId.value]!
-                            .map((element) => _buildWalletItem(element))
-                            .toList(),
+                    children: getTokenList()
                   )),
             ),
           ],
@@ -254,6 +248,32 @@ class HomeView extends GetView<HomeController> {
         .asMap()
         .forEach((index, value) => {list.add(_buildPageItem(index, value))});
     return list;
+  }
+
+  List<Widget> getTokenList() {
+    WalletService service = Get.find<WalletService>();
+    List<Widget> list = [];
+    if (service.mStoredWalletMap.value[service.mCurrentWalletId.value] ==
+        null) {
+      return [Text("Stored Wallet Info not found")];
+    } else {
+      service.mStoredWalletMap.value[service.mCurrentWalletId.value]!
+          .forEach((element) {
+        if (controller.selectedChain == 1){
+          list.add(_buildWalletItem(element));
+          
+        } else if (controller.selectedChain == 2) {
+          if (element.coinType.toCoinSymbol() == "NEW") {
+            list.add(_buildWalletItem(element));
+          }
+        } else if (controller.selectedChain == 3) {
+          if (element.coinType.toCoinSymbol() == "ETH") {
+            list.add(_buildWalletItem(element));
+          }
+        }
+      });
+      return list;
+    }
   }
 }
 
