@@ -123,6 +123,20 @@ class ObjectBox {
     return networkConfigs;
   }
 
+  static Future<NetworkConfig> queryDefaultNetworkConfigByCoinType(
+      int coinType) async {
+    final store = await openStore();
+    final box = store.box<NetworkConfig>();
+    final networkConfig = box
+        .query(NetworkConfig_.coinType
+            .equals(coinType)
+            .and(NetworkConfig_.isDefault.equals(true)))
+        .build()
+        .findFirst();
+    store.close();
+    return networkConfig!;
+  }
+
   static Future<void> changeDefaultNetworkConfig(
       NetworkConfig newDefaultconfig, NetworkConfig oldDefaultconfig) async {
     final store = await openStore();

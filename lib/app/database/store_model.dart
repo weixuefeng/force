@@ -1,4 +1,3 @@
-import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
@@ -54,50 +53,5 @@ class NetworkConfig {
   @override
   String toString() {
     return "NetworkConfig: ${networkName}  ${isDefault}";
-  }
-}
-
-class NetworkBuilder {
-  var _mCoinType = 0;
-  int _mNetworkId = 0; // chain id
-  String? _mNetworkName; // network name, eg: Newton TestNet
-  String? _mRpcUrl; // rpc url
-  bool _mIsDefault = false;
-
-  static final NetworkBuilder _singleton = NetworkBuilder();
-
-  NetworkBuilder coinType(int coinType) {
-    _singleton._mCoinType = coinType;
-    return _singleton;
-  }
-
-  NetworkBuilder networkdId(int networkdId) {
-    _singleton._mNetworkId = networkdId;
-    return _singleton;
-  }
-
-  NetworkBuilder networkName(String networkName) {
-    _singleton._mNetworkName = networkName;
-    return _singleton;
-  }
-
-  NetworkBuilder rpcUrl(String rpcUrl) {
-    _singleton._mRpcUrl = rpcUrl;
-    return _singleton;
-  }
-
-  NetworkBuilder setDefault(bool isDefault) {
-    _singleton._mIsDefault = isDefault;
-    return _singleton;
-  }
-
-  NetworkConfig build() {
-    var networkConfig = NetworkConfig();
-    networkConfig.coinType = _singleton._mCoinType;
-    networkConfig.networkId = _singleton._mNetworkId;
-    networkConfig.networkName = _singleton._mNetworkName;
-    networkConfig.rpcUrl = _singleton._mRpcUrl;
-    networkConfig.isDefault = _singleton._mIsDefault;
-    return networkConfig;
   }
 }

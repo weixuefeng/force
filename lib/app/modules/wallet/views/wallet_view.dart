@@ -20,6 +20,10 @@ class WalletView extends GetView<WalletController> {
               'Symbol: ${controller.mStoredWalletInfo.value.coinType.toCoinSymbol()}\n\naddress:${controller.mStoredWalletInfo.value.showAddress}',
               style: TextStyle(fontSize: 20),
             )),
+        Obx(() => Text(
+              'Balance: ${controller.balance}',
+              style: TextStyle(fontSize: 20),
+            )),
         ElevatedButton(onPressed: () => {}, child: Text("transaction history")),
         ElevatedButton(
             onPressed: () => {controller.openSend()},

@@ -18,9 +18,9 @@ class WalletService extends GetxService {
 
   Future<void> initData() async {
     var keyInfo = await ObjectBox.queryStoredinfos();
-    mStoredKeyInfos.value.addAll(keyInfo);
+    mStoredKeyInfos.addAll(keyInfo);
     var walletInfos = await ObjectBox.queryWallets();
-    mWalletInfos.value.addAll(walletInfos);
+    mWalletInfos.addAll(walletInfos);
     setDefaultCurrentWallet();
     walletInfos.forEach((element) {
       mStoredWalletMap[element.parentId] ??= [];
@@ -29,7 +29,6 @@ class WalletService extends GetxService {
     var list = await ObjectBox.queryNetworkConfigByCoinType(
         TWCoinType.TWCoinTypeNewChain);
     if (list.isEmpty) {
-      print("init network config");
       await ObjectBox.initNetworkConfig();
     }
   }
@@ -49,7 +48,7 @@ class WalletService extends GetxService {
 
   Future<int> addStoreInfo(StoredKeyInfo storeInfo) async {
     var id = await ObjectBox.insertStoreKey(storeInfo);
-    mStoredKeyInfos.value.add(storeInfo);
+    mStoredKeyInfos.add(storeInfo);
     return id;
   }
 

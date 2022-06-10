@@ -1,3 +1,4 @@
+import 'package:forcewallet/app/service/rpc_service.dart';
 import 'package:get/get.dart';
 
 import 'package:forcewallet/app/database/store_model.dart';
@@ -7,9 +8,10 @@ class MainController extends GetxController {
   var selectedIndex = 0.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    print("main onInit");
+    var rpcService = Get.find<ForceRpcService>();
+    await rpcService.initRpcService();
   }
 
   @override

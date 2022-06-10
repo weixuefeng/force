@@ -1,4 +1,5 @@
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:forcewallet/app/service/rpc_service.dart';
 import 'package:get/get.dart';
 
 import 'package:forcewallet/app/database/object_box.dart';
@@ -10,10 +11,11 @@ class NetworkManageController extends GetxController {
 
   var defaultNewNetworkConfig = NetworkConfig().obs;
   var defaultEthNetworkConfig = NetworkConfig().obs;
-
+  ForceRpcService? rpcService;
   @override
   void onInit() async {
     super.onInit();
+    rpcService = Get.find<ForceRpcService>();
     var newConfig = await ObjectBox.queryNetworkConfigByCoinType(
         TWCoinType.TWCoinTypeNewChain);
     var ethConfig = await ObjectBox.queryNetworkConfigByCoinType(
@@ -63,5 +65,6 @@ class NetworkManageController extends GetxController {
 
     /// 更新内存 default 数据
     oldDefaultconfig.value = networkConfig;
+    rpcService!.updateRpcService(networkConfig);
   }
 }
