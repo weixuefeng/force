@@ -50,6 +50,11 @@ class NetworkConfig {
     networkConfig.isDefault = element['isDefault'];
     return networkConfig;
   }
+
+  @override
+  String toString() {
+    return "NetworkConfig: ${networkName}  ${isDefault}";
+  }
 }
 
 class NetworkBuilder {

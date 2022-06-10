@@ -8,6 +8,8 @@ import '../modules/import/bindings/import_binding.dart';
 import '../modules/import/views/import_view.dart';
 import '../modules/main/bindings/main_binding.dart';
 import '../modules/main/views/main_view.dart';
+import '../modules/network_manage/bindings/network_manage_binding.dart';
+import '../modules/network_manage/views/network_manage_view.dart';
 import '../modules/send/bindings/send_binding.dart';
 import '../modules/send/views/send_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
@@ -72,6 +74,11 @@ class AppPages {
       name: _Paths.WALLET_MANAGE,
       page: () => const WalletManageView(),
       binding: WalletManageBinding(),
+    ),
+    GetPage(
+      name: _Paths.NETWORK_MANAGE,
+      page: () => const NetworkManageView(),
+      binding: NetworkManageBinding(),
     ),
   ];
 }
