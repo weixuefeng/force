@@ -202,7 +202,7 @@ class HomeView extends GetView<HomeController> {
               child: InkWell(
                 onTap: () => {},
                 child: Image(
-                  image: AssetImage("images/eth.png"),
+                  image: AssetImage("images/copy.png"),
                 ),
               ),
             ),
