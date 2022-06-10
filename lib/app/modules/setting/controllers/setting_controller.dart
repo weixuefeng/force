@@ -28,4 +28,8 @@ class SettingController extends GetxController {
   void openWalletManage() {
     Get.toNamed(Routes.WALLET_MANAGE);
   }
+
+  openNetworkConfig() {
+    Get.toNamed(Routes.NETWORK_MANAGE);
+  }
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/home/controllers/home_controller.dart';
 import 'package:forcewallet/app/service/wallet_service.dart';
 import 'package:forcewallet/app/utils/extension.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:path/path.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);

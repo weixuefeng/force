@@ -36,6 +36,10 @@ class SettingView extends GetView<SettingController> {
                   leading: Icon(Icons.wallet),
                   title: Text(LocaleKeys.settings_wallet_observer_account.tr),
                 ),
+                SettingsTile.navigation(
+                    leading: Icon(Icons.wifi),
+                    title: Text("network config"),
+                    onPressed: (context) => {controller.openNetworkConfig()}),
               ],
             ),
             SettingsSection(

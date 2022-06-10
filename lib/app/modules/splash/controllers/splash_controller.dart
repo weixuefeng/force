@@ -1,7 +1,6 @@
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:get/get.dart';
 
-import 'package:forcewallet/app/database/object_box.dart';
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/create/bindings/create_binding.dart';
 import 'package:forcewallet/app/modules/create/views/create_view.dart';

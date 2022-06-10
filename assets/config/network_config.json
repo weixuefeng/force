@@ -23,21 +23,21 @@
   {
     "networkName" : "Ethereum RinkbyTest",
     "networkId": 0,
-    "coinType": 40,
+    "coinType": 60,
     "rpcUrl": "https://rinkeby.infura.io/v3/3e92ec988e004b09ad2ad8a677d5e0ef",
     "isDefault": false
   },
   {
     "networkName" : "Ethereum RopstenTest",
-    "networkId": 1002,
-    "coinType": 0,
+    "networkId": 0,
+    "coinType": 60,
     "rpcUrl": "https://ropsten.infura.io/v3/3e92ec988e004b09ad2ad8a677d5e0ef",
     "isDefault": true
   },
   {
     "networkName" : "Ethremum MainNet",
     "networkId": 0,
-    "coinType": 40,
+    "coinType": 60,
     "rpcUrl": "https://mainnet.infura.io/v3/3e92ec988e004b09ad2ad8a677d5e0ef",
     "isDefault": false
   }

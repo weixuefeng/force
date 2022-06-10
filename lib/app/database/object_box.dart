@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
 
 import 'package:forcewallet/app/database/store_model.dart';
@@ -97,6 +98,8 @@ class ObjectBox {
     var int = box.removeAll();
     final box2 = store.box<StoredWalletInfo>();
     var int2 = box2.removeAll();
+    var networkConfig = store.box<NetworkConfig>();
+    networkConfig.removeAll();
     store.close();
     return int2;
   }
@@ -118,5 +121,14 @@ class ObjectBox {
         box.query(NetworkConfig_.coinType.equals(coinType)).build().find();
     store.close();
     return networkConfigs;
+  }
+
+  static Future<void> changeDefaultNetworkConfig(
+      NetworkConfig newDefaultconfig, NetworkConfig oldDefaultconfig) async {
+    final store = await openStore();
+    final box = store.box<NetworkConfig>();
+    var newId = box.put(newDefaultconfig, mode: PutMode.update);
+    var oldId = box.put(oldDefaultconfig, mode: PutMode.update);
+    store.close();
   }
 }
