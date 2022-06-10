@@ -26,6 +26,12 @@ class WalletService extends GetxService {
       mStoredWalletMap[element.parentId] ??= [];
       mStoredWalletMap[element.parentId]!.add(element);
     });
+    var list = await ObjectBox.queryNetworkConfigByCoinType(
+        TWCoinType.TWCoinTypeNewChain);
+    if (list.isEmpty) {
+      print("init network config");
+      await ObjectBox.initNetworkConfig();
+    }
   }
 
   void getAllStoreInfo() {}
@@ -58,8 +64,7 @@ class WalletService extends GetxService {
   void deleteStoreInfo() {}
 
   void setDefaultCurrentWallet() {
-    print("mCurrentWalletId: $mCurrentWalletId");
-    if (mCurrentWalletId.value == 0 && mWalletInfos.value.length > 0) {
+    if (mCurrentWalletId.value == 0 && mWalletInfos.value.isNotEmpty) {
       setCurrentWalletId(mWalletInfos.value[0].parentId);
     }
   }

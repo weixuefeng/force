@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import 'package:forcewallet/app/database/store_model.dart';
@@ -15,6 +19,20 @@ class ObjectBox {
     // Future<Store> openStore() {...} is defined in the generated objectbox.g.dart
     final store = await openStore();
     return ObjectBox._create(store);
+  }
+
+  static Future<void> initNetworkConfig() async {
+    final store = await openStore();
+    var configStore = store.box<NetworkConfig>();
+    var json = await DefaultAssetBundle.of(Get.context!)
+        .loadString('assets/config/network_config.json');
+    print(json);
+    var networkConfigs = jsonDecode(json) as List<dynamic>;
+    networkConfigs.forEach((element) {
+      var networkConfig = NetworkConfig.fromJson(element);
+      configStore.put(networkConfig);
+    });
+    store.close();
   }
 
   static Future<int> insertStoreKey(StoredKeyInfo info) async {
@@ -81,5 +99,24 @@ class ObjectBox {
     var int2 = box2.removeAll();
     store.close();
     return int2;
+  }
+
+  /// network config
+  static Future<int> addNetworkConfig(NetworkConfig config) async {
+    final store = await openStore();
+    final box = store.box<NetworkConfig>();
+    final netId = box.put(config);
+    store.close();
+    return netId;
+  }
+
+  static Future<List<NetworkConfig>> queryNetworkConfigByCoinType(
+      int coinType) async {
+    final store = await openStore();
+    final box = store.box<NetworkConfig>();
+    final networkConfigs =
+        box.query(NetworkConfig_.coinType.equals(coinType)).build().find();
+    store.close();
+    return networkConfigs;
   }
 }
