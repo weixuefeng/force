@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
 
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/home/controllers/home_controller.dart';
 import 'package:forcewallet/app/service/wallet_service.dart';
 import 'package:forcewallet/app/utils/extension.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:path/path.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -49,9 +51,7 @@ class HomeView extends GetView<HomeController> {
               color: Colors.blue,
               height: double.maxFinite,
               margin: const EdgeInsets.only(top: 20),
-              child: Obx(() => ListView(
-                    children: getTokenList()
-                  )),
+              child: Obx(() => ListView(children: getTokenList())),
             ),
           ],
         ));
@@ -194,7 +194,10 @@ class HomeView extends GetView<HomeController> {
               height: 16,
               margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: InkWell(
-                onTap: () => {},
+                onTap: () => {
+                  Clipboard.setData(ClipboardData(text: element.showAddress!)),
+                  EasyLoading.showSuccess("NEW Address copied")
+                },
                 child: Image(
                   image: AssetImage("images/copy.png"),
                 ),
@@ -213,7 +216,10 @@ class HomeView extends GetView<HomeController> {
               height: 16,
               margin: EdgeInsets.fromLTRB(4, 0, 0, 0),
               child: InkWell(
-                onTap: () => {},
+                onTap: () => {
+                  Clipboard.setData(ClipboardData(text: element.showAddress!)),
+                  EasyLoading.showSuccess("ETH Address copied")
+                },
                 child: Image(
                   image: AssetImage("images/copy.png"),
                 ),
@@ -259,9 +265,8 @@ class HomeView extends GetView<HomeController> {
     } else {
       service.mStoredWalletMap.value[service.mCurrentWalletId.value]!
           .forEach((element) {
-        if (controller.selectedChain == 1){
+        if (controller.selectedChain == 1) {
           list.add(_buildWalletItem(element));
-          
         } else if (controller.selectedChain == 2) {
           if (element.coinType.toCoinSymbol() == "NEW") {
             list.add(_buildWalletItem(element));

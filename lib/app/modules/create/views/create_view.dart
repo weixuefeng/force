@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../controllers/create_controller.dart';
@@ -11,8 +11,15 @@ class CreateView extends GetView<CreateController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('CreateView'),
+          title: Text('Create Wallet',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )),
           centerTitle: true,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
         ),
         body: Center(
             child: ListView(
@@ -57,7 +64,10 @@ class CreateView extends GetView<CreateController> {
               height: 140,
               margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
               child: InkWell(
-                onTap: () => {controller.createWallet()},
+                onTap: () => {
+                  // controller.create_new_task()
+                  controller.createWallet()
+                },
                 child: Image(
                   image: AssetImage("images/create.jpg"),
                   fit: BoxFit.fill,

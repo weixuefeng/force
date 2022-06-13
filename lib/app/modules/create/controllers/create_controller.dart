@@ -1,5 +1,6 @@
 import 'dart:ffi';
-
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/main/bindings/main_binding.dart';
 import 'package:forcewallet/app/modules/main/views/main_view.dart';
 import 'package:forcewallet/app/service/wallet_service.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class CreateController extends GetxController {
   final count = 0.obs;
@@ -28,7 +30,18 @@ class CreateController extends GetxController {
 
   void increment() => count.value++;
 
+  // create_new_task() async {
+  //   EasyLoading.show();
+  //   var service = Get.find<WalletService>();
+  //   var result = await compute(createWallet, service).then((value) => {
+  //     Get.off(() => MainView(), preventDuplicates: false, binding: MainBinding()),
+  //     EasyLoading.dismiss()
+  //   });
+  // }
+
   void createWallet() async {
+  // void createWallet(WalletService service) async {
+    // FlutterTrustWalletCore.init();
     var service = Get.find<WalletService>();
     var wallet = HDWallet();
     var storeKey = StoredKey.importHDWallet(
