@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:forcewallet/app/service/rpc_service.dart';
 
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ void main() async {
       translationsKeys: AppTranslation.translations,
       locale: const Locale('en_US'),
       fallbackLocale: const Locale("en_US"),
+      builder: EasyLoading.init(),
     ),
   );
 }
