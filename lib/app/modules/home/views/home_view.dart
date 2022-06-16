@@ -48,7 +48,7 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             Container(
-              color: Colors.blue,
+              color: Colors.white,
               height: double.maxFinite,
               margin: const EdgeInsets.only(top: 20),
               child: Obx(() => ListView(children: getTokenList())),
@@ -80,6 +80,7 @@ class HomeView extends GetView<HomeController> {
       {'asset': 'images/new.png'},
       {'asset': 'images/eth.png'}
     ];
+
     return Card(
       margin: const EdgeInsets.all(0),
       color: Colors.white,
@@ -234,15 +235,47 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildWalletItem(StoredWalletInfo element) {
+    final dict = {"NEW": "images/new.png", "ETH": "images/eth.png"};
+    final icon = dict[element.coinType.toCoinSymbol()] ?? "";
     return Container(
-      child: Column(
-        children: [
-          Text(element.coinType.toCoinSymbol()),
-          Text(element.showAddress!),
-          ElevatedButton(
-              onPressed: (() => {controller.openWalletDetail(element)}),
-              child: Text("Open"))
-        ],
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+      child: TextButton(
+        onPressed: (() => {controller.openWalletDetail(element)}),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.white),
+            elevation: MaterialStateProperty.all(2.0)),
+        child: Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(top: 8, bottom: 8),
+              child: Image(
+                image: AssetImage(icon),
+                width: 32,
+              )
+            ),
+            Container(
+                margin: const EdgeInsets.only(left: 16),
+                child: Text(
+                  element.coinType.toCoinSymbol(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                )),
+            Spacer(),
+            Container(
+              margin: const EdgeInsets.only(left: 8),
+              child: Text(
+                "\$0.00",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                ),
+              )
+            ),
+          ],
+        ),
       ),
     );
   }
