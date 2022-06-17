@@ -56,6 +56,10 @@ dependencies:
   settings_ui: ^2.0.2
   carousel_slider: ^4.1.1
   flutter_easyloading: ^3.0.5
+  # qrCode
+  scan: ^1.6.0
+  # permission handle
+  permission_handler: ^10.0.0
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

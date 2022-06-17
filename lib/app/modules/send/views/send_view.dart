@@ -6,6 +6,7 @@ import '../controllers/send_controller.dart';
 
 class SendView extends GetView<SendController> {
   const SendView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,22 +18,25 @@ class SendView extends GetView<SendController> {
           padding: EdgeInsets.all(8.0),
           child: Column(
             children: [
-              TextFormField(
-                cursorColor: Theme.of(context).cursorColor,
-                initialValue: '',
-                maxLength: 50,
-                onChanged: (value) => {controller.updateAddress(value)},
-                decoration: InputDecoration(
-                  labelText: '接收者',
-                  labelStyle: TextStyle(
-                    color: Color(0xFF6200EE),
-                  ),
-                  helperText: '接收者地址或者ENS',
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF6200EE)),
-                  ),
-                ),
-              ),
+              Obx(() => TextFormField(
+                    controller: controller.mAddressInputController.value,
+                    cursorColor: Theme.of(context).cursorColor,
+                    maxLength: 50,
+                    onChanged: (value) => {controller.updateAddress(value)},
+                    decoration: InputDecoration(
+                        labelText: '接收者',
+                        labelStyle: TextStyle(
+                          color: Color(0xFF6200EE),
+                        ),
+                        helperText: '接收者地址或者ENS',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFF6200EE)),
+                        ),
+                        suffixIcon: ElevatedButton(
+                          onPressed: () => {controller.openScan()},
+                          child: Icon(Icons.qr_code_2_outlined),
+                        )),
+                  )),
               TextFormField(
                 cursorColor: Theme.of(context).cursorColor,
                 initialValue: '',

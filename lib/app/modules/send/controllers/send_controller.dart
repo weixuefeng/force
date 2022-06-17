@@ -1,6 +1,10 @@
 import 'package:convert/convert.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:forcewallet/app/modules/scan/bindings/scan_binding.dart';
+import 'package:forcewallet/app/modules/scan/views/scan_view.dart';
+import 'package:forcewallet/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -18,6 +22,8 @@ class SendController extends GetxController {
   final targetAmount = "".obs;
   final mPassword = "".obs;
   final mStoredWalletInfo = StoredWalletInfo().obs;
+  final mAddressInputController = TextEditingController().obs;
+
   var rpc = RpcEthereum(NewChainTest);
 
   @override
@@ -47,6 +53,11 @@ class SendController extends GetxController {
 
   void updatePassword(String password) {
     mPassword.value = password;
+  }
+
+  void openScan() async {
+    var data = await Get.to(ScanQRView(), binding: ScanBinding());
+    mAddressInputController.value.text = data;
   }
 
   void sendTransaction() {

@@ -10,6 +10,8 @@ import '../modules/main/bindings/main_binding.dart';
 import '../modules/main/views/main_view.dart';
 import '../modules/network_manage/bindings/network_manage_binding.dart';
 import '../modules/network_manage/views/network_manage_view.dart';
+import '../modules/scan/bindings/scan_binding.dart';
+import '../modules/scan/views/scan_view.dart';
 import '../modules/send/bindings/send_binding.dart';
 import '../modules/send/views/send_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
@@ -79,6 +81,11 @@ class AppPages {
       name: _Paths.NETWORK_MANAGE,
       page: () => const NetworkManageView(),
       binding: NetworkManageBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCAN,
+      page: () => const ScanQRView(),
+      binding: ScanBinding(),
     ),
   ];
 }
