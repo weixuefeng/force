@@ -14,6 +14,7 @@ abstract class Routes {
   static const WALLET_MANAGE = _Paths.WALLET_MANAGE;
   static const NETWORK_MANAGE = _Paths.NETWORK_MANAGE;
   static const SCAN = _Paths.SCAN;
+  static const BROWSER = _Paths.BROWSER;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const WALLET_MANAGE = '/wallet-manage';
   static const NETWORK_MANAGE = '/network-manage';
   static const SCAN = '/scan';
+  static const BROWSER  = '/browser';
 }

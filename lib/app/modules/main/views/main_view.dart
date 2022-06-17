@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:forcewallet/app/modules/home/views/home_view.dart';
+import 'package:forcewallet/app/modules/browser/views/browser_view.dart';
 import 'package:forcewallet/app/modules/setting/views/setting_view.dart';
 import 'package:forcewallet/app/utils/extension.dart';
 
@@ -14,6 +15,8 @@ class MainView extends GetView<MainController> {
   Widget getWidgetByIndex() {
     if (controller.selectedIndex.value == 0) {
       return HomeView();
+    } else if (controller.selectedIndex.value == 1) {
+      return BrowserView();
     } else if (controller.selectedIndex.value == 2) {
       return SettingView();
     } else {

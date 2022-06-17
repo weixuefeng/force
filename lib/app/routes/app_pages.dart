@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/browser/bindings/browser_binding.dart';
+import '../modules/browser/views/browser_view.dart';
 import '../modules/create/bindings/create_binding.dart';
 import '../modules/create/views/create_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -65,6 +67,11 @@ class AppPages {
             name: _Paths.HOME,
             page: () => const HomeView(),
             binding: HomeBinding(),
+          ),
+          GetPage(
+            name: _Paths.BROWSER,
+            page: () => const BrowserView(),
+            binding: BrowserBinding(),
           ),
         ]),
     GetPage(
