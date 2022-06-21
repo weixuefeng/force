@@ -55,12 +55,12 @@ class WalletView extends GetView<WalletController> {
                   child: Obx(() => Image(
                       image: AssetImage(
                           '${info[controller.mStoredWalletInfo.value.coinType.toCoinSymbol()]?["icon"] ?? "images/new.png"}')))),
-              Container(
+              Obx(() => Container(
                   margin: const EdgeInsets.only(top: 16),
                   child: Text(
-                    "${controller.balance}",
+                    "${controller.balance.value.toEther()}",
                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                  )),
+                  ))),
               Container(
                   margin: const EdgeInsets.only(top: 4),
                   child: Text(
@@ -88,11 +88,8 @@ class WalletView extends GetView<WalletController> {
                       },
                     ))),
             Container(
-              margin: const EdgeInsets.only(top: 16),
-              child: Obx(() =>
-                getView()
-              )
-            ),
+                margin: const EdgeInsets.only(top: 16),
+                child: Obx(() => getView())),
             // ElevatedButton(
             //     onPressed: () => {}, child: Text("transaction history")),
           ],
@@ -124,16 +121,90 @@ class WalletView extends GetView<WalletController> {
                       backgroundColor:
                           MaterialStateProperty.all(Colors.blue[300]),
                     ),
-                    onPressed: () => {},
+                    onPressed: () async {
+                      int? selectedIndex = await _showCustomModalBottomSheet(
+                          context, ['1', '2', '3']);
+                      print("自定义底部弹层：选中了第$selectedIndex个选项");
+                    },
                     child: Text(
                       "收款",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ))),
-            
           ],
         ),
       ]),
+    );
+  }
+
+  Future<int?> _showCustomModalBottomSheet(
+      context, List<String> options) async {
+    return showModalBottomSheet<int>(
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: const Radius.circular(20.0),
+              topRight: const Radius.circular(20.0),
+            ),
+          ),
+          height: MediaQuery.of(context).size.height * 3.0 / 4.0,
+          child: Column(children: [
+            SizedBox(
+              height: 50,
+              child: Stack(
+                textDirection: TextDirection.rtl,
+                children: [
+                  Center(
+                    child: Text(
+                      '底部弹窗',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16.0),
+                    ),
+                  ),
+                  IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                ],
+              ),
+            ),
+            Divider(height: 1.0),
+            Expanded(
+                child: ListView(
+              children: [
+                Center(
+                    child: Container(
+                        width: 300,
+                        margin: const EdgeInsets.only(top: 32),
+                        child: QrImage(
+                  data:
+                      '${controller.mStoredWalletInfo.value.showAddress?.toNEWAddress(1007)}',
+                  version: QrVersions.auto,
+                  size: 320,
+                  gapless: false,
+                  errorStateBuilder: (cxt, err) {
+                    return Container(
+                      child: Center(
+                        child: Text(
+                          "Uh oh! Something went wrong...",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    );
+                  },
+                ))),
+              ],
+            )),
+          ]),
+        );
+      },
     );
   }
 
@@ -150,25 +221,9 @@ class WalletView extends GetView<WalletController> {
         margin: const EdgeInsets.only(left: 16, right: 16),
         color: Colors.blue,
         height: 800,
-        child: QrImage(
-          data:
-              '${controller.mStoredWalletInfo.value.showAddress?.toNEWAddress(1007)}',
-          version: QrVersions.auto,
-          size: 320,
-          gapless: false,
-          errorStateBuilder: (cxt, err) {
-            return Container(
-              child: Center(
-                child: Text(
-                  "Uh oh! Something went wrong...",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            );
-          },
-        ),
+        child: null
       );
-    } else  {
+    } else {
       return Container(
         margin: const EdgeInsets.only(left: 16, right: 16),
         color: Colors.yellow,

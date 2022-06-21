@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
+import 'package:web3dart/web3dart.dart';
 
 /*
  * @Author: pony@diynova.com
@@ -90,5 +91,9 @@ extension StringExtension on String {
     address = address.substring(NEW_PREFIX.length);
     return '0x' +
         hex.encode(Base58.base58Decode(address)!.toList()).substring(6);
+  }
+
+  toEther() {
+    return EtherAmount.fromUnitAndValue(EtherUnit.wei, this).getValueInUnit(EtherUnit.ether);
   }
 }
