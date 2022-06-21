@@ -2,9 +2,10 @@ import 'package:get/get.dart';
 
 import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/routes/app_pages.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class BrowserController extends GetxController {
-  var selectedIndex = 0.obs;
+  WebViewController? webviewController;
 
   @override
   void onInit() {
@@ -21,11 +22,7 @@ class BrowserController extends GetxController {
     super.onClose();
   }
 
-  void openWalletDetail(StoredWalletInfo info) {
-    Get.toNamed(Routes.WALLET, arguments: info);
-  }
-
-  void onItemTapped(int index) {
-    selectedIndex.value = index;
+  void onURLSelected(String input) {
+    webviewController?.loadUrl(input);
   }
 }
