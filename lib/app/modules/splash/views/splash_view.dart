@@ -12,16 +12,15 @@ class SplashView extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('SplashView'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Obx(() => Text(
-              'SplashView is working ${controller.content.value}',
-              style: TextStyle(fontSize: 20),
-            )),
-      ),
-    );
+        appBar: null,
+        body: Center(
+          // width: MediaQuery.of(context).size.width,
+          // height: MediaQuery.of(context).size.height,
+          child: Obx(() => Image(
+            image: AssetImage("images/splash.jpg"),
+            fit: BoxFit.cover,
+            semanticLabel: '${controller.content.value}',
+          )),
+        ));
   }
 }

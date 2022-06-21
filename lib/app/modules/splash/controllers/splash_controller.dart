@@ -24,7 +24,9 @@ class SplashController extends GetxController {
   void onReady() {
     super.onReady();
     print("onReady");
-    getAllWallets();
+    Future.delayed(Duration(milliseconds: 2000), () {
+      getAllWallets();
+    });
   }
 
   @override

@@ -20,20 +20,56 @@ class BrowserView extends GetView<BrowserController> {
     WalletService service = Get.find<WalletService>();
     return Scaffold(
         appBar: AppBar(
-          title: Text('Home',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              )),
+          title: _getBrowserTopBar(),
           centerTitle: true,
           backgroundColor: Colors.white,
         ),
-        body: Container(
-          child: WebView(
-            initialUrl: 'https://flutter.cn',
-          ),
-        ));
+        body: _getBrowser());
   }
 
+  Widget _getBrowser() {
+    return WebView(
+      initialUrl: '',
+      javascriptMode: JavascriptMode.unrestricted,
+      onWebViewCreated: (c) {
+        Get.put(BrowserController());
+        controller.webviewController = c;
+      },
+      onPageStarted: (String url) {},
+      onPageFinished: (String url) {},
+      onWebResourceError: (error) {},
+    );
+  }
+
+  Widget _getBrowserTopBar() {
+    return Row(
+      children: <Widget>[
+        Expanded(
+            flex: 1,
+            child: Container(
+              child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey[300],
+                    hintStyle: TextStyle(fontSize: 17),
+                    hintText: 'Website url with http(s)',
+                    suffixIcon: Icon(Icons.search),
+                    contentPadding: EdgeInsets.only(
+                        left: 20, right: 20, top: 12, bottom: 12),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  onSubmitted: (input) {
+                    controller.onURLSelected(input);
+                  }),
+            )),
+      ],
+    );
+  }
 }
