@@ -21,6 +21,7 @@ class SettingView extends GetView<SettingController> {
               )),
           centerTitle: true,
           backgroundColor: Colors.white,
+          elevation: 0.0,
         ),
         body: SettingsList(
           sections: [

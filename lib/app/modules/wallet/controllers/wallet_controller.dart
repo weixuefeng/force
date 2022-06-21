@@ -8,6 +8,7 @@ class WalletController extends GetxController {
   final mStoredWalletInfo = StoredWalletInfo().obs;
   var balance = "0".obs;
   late ForceRpcService rpcService;
+  var selectedSegment = 0.obs;
 
   @override
   void onInit() {
@@ -34,5 +35,9 @@ class WalletController extends GetxController {
 
   void openSend() {
     Get.toNamed(Routes.SEND, arguments: mStoredWalletInfo.value);
+  }
+
+  void onSegmentSelect(int index) {
+    selectedSegment.value = index;
   }
 }

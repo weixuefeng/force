@@ -23,6 +23,7 @@ class BrowserView extends GetView<BrowserController> {
           title: _getBrowserTopBar(),
           centerTitle: true,
           backgroundColor: Colors.white,
+          elevation: 0.0,
         ),
         body: _getBrowser());
   }

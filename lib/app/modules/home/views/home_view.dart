@@ -28,6 +28,7 @@ class HomeView extends GetView<HomeController> {
               )),
           centerTitle: true,
           backgroundColor: Colors.white,
+          elevation: 0.0,
         ),
         body: ListView(
           children: [
@@ -57,7 +58,7 @@ class HomeView extends GetView<HomeController> {
         ));
   }
 
-  Widget button(int exampleNumber, String title) {
+  Widget chainButton(int exampleNumber, String title) {
     return Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
         child: Button(
@@ -161,7 +162,7 @@ class HomeView extends GetView<HomeController> {
                               width: 44,
                               padding:
                                   const EdgeInsets.only(left: 4.0, right: 4.0),
-                              child: button(i + 1, list[i]['asset'] ?? ""),
+                              child: chainButton(i + 1, list[i]['asset'] ?? ""),
                             )),
                     ],
                   ),
@@ -193,7 +194,7 @@ class HomeView extends GetView<HomeController> {
             Container(
               // width: 100,
               height: 16,
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child: InkWell(
                 onTap: () => {
                   Clipboard.setData(ClipboardData(text: element.showAddress!)),
@@ -213,7 +214,6 @@ class HomeView extends GetView<HomeController> {
               style: TextStyle(color: Colors.white, fontSize: 12),
             ),
             Container(
-              // width: 100,
               height: 16,
               margin: EdgeInsets.fromLTRB(4, 0, 0, 0),
               child: InkWell(
@@ -247,13 +247,12 @@ class HomeView extends GetView<HomeController> {
         child: Row(
           children: [
             Container(
-              margin: const EdgeInsets.only(left: 8),
-              padding: const EdgeInsets.only(top: 8, bottom: 8),
-              child: Image(
-                image: AssetImage(icon),
-                width: 32,
-              )
-            ),
+                margin: const EdgeInsets.only(left: 8),
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                child: Image(
+                  image: AssetImage(icon),
+                  width: 32,
+                )),
             Container(
                 margin: const EdgeInsets.only(left: 16),
                 child: Text(
@@ -265,15 +264,14 @@ class HomeView extends GetView<HomeController> {
                 )),
             Spacer(),
             Container(
-              margin: const EdgeInsets.only(left: 8),
-              child: Text(
-                "\$0.00",
-                style: TextStyle(
+                margin: const EdgeInsets.only(left: 8),
+                child: Text(
+                  "\$0.00",
+                  style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,
-                ),
-              )
-            ),
+                  ),
+                )),
           ],
         ),
       ),
