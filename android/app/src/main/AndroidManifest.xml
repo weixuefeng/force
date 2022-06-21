@@ -2,9 +2,11 @@
     package="com.example.forcewallet">
    <uses-permission android:name="android.permission.CAMERA"/>
    <application
-        android:label="forcewallet"
+        android:label="Force"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/icon_launcher"
+       android:roundIcon="@mipmap/icon_launcher_round"
+       >
         <activity
             android:name=".MainActivity"
             android:exported="true"

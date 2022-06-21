@@ -4,7 +4,6 @@ import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
 import 'package:forcewallet/app/modules/scan/bindings/scan_binding.dart';
 import 'package:forcewallet/app/modules/scan/views/scan_view.dart';
-import 'package:forcewallet/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -57,7 +56,9 @@ class SendController extends GetxController {
 
   void openScan() async {
     var data = await Get.to(ScanQRView(), binding: ScanBinding());
-    mAddressInputController.value.text = data;
+    if (data != null) {
+      mAddressInputController.value.text = data;
+    }
   }
 
   void sendTransaction() {

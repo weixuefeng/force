@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:forcewallet/app/utils/extension.dart';
 import '../controllers/wallet_controller.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class WalletView extends GetView<WalletController> {
   const WalletView({Key? key}) : super(key: key);
@@ -129,6 +130,7 @@ class WalletView extends GetView<WalletController> {
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ))),
+            
           ],
         ),
       ]),
@@ -148,7 +150,23 @@ class WalletView extends GetView<WalletController> {
         margin: const EdgeInsets.only(left: 16, right: 16),
         color: Colors.blue,
         height: 800,
-        child: null,
+        child: QrImage(
+          data:
+              '${controller.mStoredWalletInfo.value.showAddress?.toNEWAddress(1007)}',
+          version: QrVersions.auto,
+          size: 320,
+          gapless: false,
+          errorStateBuilder: (cxt, err) {
+            return Container(
+              child: Center(
+                child: Text(
+                  "Uh oh! Something went wrong...",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          },
+        ),
       );
     } else  {
       return Container(
