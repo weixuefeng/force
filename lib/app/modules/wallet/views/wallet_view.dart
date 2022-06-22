@@ -12,10 +12,6 @@ class WalletView extends GetView<WalletController> {
   const WalletView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    const info = {
-      "NEW": {"name": "Newton", "icon": "images/new.png"},
-      "ETH": {"name": "Ethereum", "icon": "images/eth.png"}
-    };
     Map<int, Widget> _children = {
       0: Text('活动'),
       1: Text('关于'),
@@ -33,7 +29,7 @@ class WalletView extends GetView<WalletController> {
                   fontSize: 18,
                 ))),
             Obx(() => Text(
-                '${info[controller.mStoredWalletInfo.value.coinType.toCoinSymbol()]?["name"]}',
+                '${controller.mStoredWalletInfo.value.coinType.toChainName()}',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 10,
@@ -52,12 +48,12 @@ class WalletView extends GetView<WalletController> {
             Center(
                 child: SingleChildScrollView(
                     child: Column(children: [
-              Container(
+              Obx(() => Container(
                   margin: const EdgeInsets.only(top: 32),
                   width: 48,
-                  child: Obx(() => Image(
+                  child: Image(
                       image: AssetImage(
-                          '${info[controller.mStoredWalletInfo.value.coinType.toCoinSymbol()]?["icon"] ?? "images/new.png"}')))),
+                          '${controller.mStoredWalletInfo.value.coinType.getIcon()}')))),
               Obx(() => Container(
                   margin: const EdgeInsets.only(top: 16),
                   child: Text(
@@ -150,8 +146,7 @@ class WalletView extends GetView<WalletController> {
             child: ListView(children: [
               Center(
                   child: QrImage(
-                      data:
-                          '${controller.mStoredWalletInfo.value.showAddress?.toNEWAddress(1007)}',
+                      data: controller.mStoredWalletInfo.value.toAddress() ?? "",
                       version: QrVersions.auto,
                       size: 280,
                       gapless: false,
@@ -170,7 +165,7 @@ class WalletView extends GetView<WalletController> {
                       margin:
                           const EdgeInsets.only(left: 16, right: 16, top: 16),
                       child: Text(
-                        '${controller.mStoredWalletInfo.value.showAddress?.toNEWAddress(1007)}',
+                        controller.mStoredWalletInfo.value.toAddress() ?? "",
                         style: TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w400),
                       )))),

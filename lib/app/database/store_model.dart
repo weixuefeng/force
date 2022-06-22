@@ -1,4 +1,5 @@
 import 'package:objectbox/objectbox.dart';
+import 'package:forcewallet/app/utils/extension.dart';
 
 @Entity()
 class StoredKeyInfo {
@@ -29,6 +30,14 @@ class StoredWalletInfo {
   String? balance;
   bool isContract = false;
   String? contractAddress;
+
+  String? toAddress() {
+    if (coinType.isNEW()) {
+      return showAddress?.toNEWAddress(1007);
+    } else {
+      return showAddress;
+    }
+  }
 }
 
 @Entity()
