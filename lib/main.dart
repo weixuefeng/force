@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:forcewallet/app/service/rpc_service.dart';
 
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ import 'generated/locales.g.dart';
 void main() async {
   Get.put(WalletService());
   Get.put(ForceRpcService());
+  FlutterTrustWalletCore.init();
   runApp(
     GetMaterialApp(
       title: "Application",

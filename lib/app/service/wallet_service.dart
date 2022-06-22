@@ -1,3 +1,4 @@
+import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +15,7 @@ class WalletService extends GetxService {
   @override
   void onInit() async {
     super.onInit();
+    print("init wallet core");
   }
 
   Future<void> initData() async {

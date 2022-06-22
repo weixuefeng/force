@@ -32,12 +32,9 @@ class SendController extends GetxController {
   void onInit() {
     super.onInit();
     everAll([isLoading], (callback) => {
-      print(isLoading),
       if(isLoading == true) {
-        print("show loading"),
         EasyLoading.show()
       } else {
-        print("hide loading"),
         EasyLoading.dismiss()
       }
     });
@@ -88,7 +85,6 @@ class SendController extends GetxController {
     } catch (e) {
       print(e);
     } finally {
-      print("hide loading");
       isLoading(false);
     }
   }

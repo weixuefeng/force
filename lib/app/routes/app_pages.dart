@@ -24,6 +24,8 @@ import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
 import '../modules/wallet_manage/bindings/wallet_manage_binding.dart';
 import '../modules/wallet_manage/views/wallet_manage_view.dart';
+import '../modules/welcome/bindings/welcome_binding.dart';
+import '../modules/welcome/views/welcome_view.dart';
 
 part 'app_routes.dart';
 
@@ -93,6 +95,11 @@ class AppPages {
       name: _Paths.SCAN,
       page: () => const ScanQRView(),
       binding: ScanBinding(),
+    ),
+    GetPage(
+      name: _Paths.WELCOME,
+      page: () => const WelcomeView(),
+      binding: WelcomeBinding(),
     ),
   ];
 }

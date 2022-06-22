@@ -184,22 +184,22 @@ class WalletView extends GetView<WalletController> {
                         width: 300,
                         margin: const EdgeInsets.only(top: 32),
                         child: QrImage(
-                  data:
-                      '${controller.mStoredWalletInfo.value.showAddress?.toNEWAddress(1007)}',
-                  version: QrVersions.auto,
-                  size: 320,
-                  gapless: false,
-                  errorStateBuilder: (cxt, err) {
-                    return Container(
-                      child: Center(
-                        child: Text(
-                          "Uh oh! Something went wrong...",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    );
-                  },
-                ))),
+                          data:
+                              '${controller.mStoredWalletInfo.value.showAddress?.toNEWAddress(1007)}',
+                          version: QrVersions.auto,
+                          size: 320,
+                          gapless: false,
+                          errorStateBuilder: (cxt, err) {
+                            return Container(
+                              child: Center(
+                                child: Text(
+                                  "Uh oh! Something went wrong...",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            );
+                          },
+                        ))),
               ],
             )),
           ]),
@@ -218,11 +218,10 @@ class WalletView extends GetView<WalletController> {
       );
     } else if (controller.selectedSegment == 1) {
       return Container(
-        margin: const EdgeInsets.only(left: 16, right: 16),
-        color: Colors.blue,
-        height: 800,
-        child: null
-      );
+          margin: const EdgeInsets.only(left: 16, right: 16),
+          color: Colors.blue,
+          height: 800,
+          child: null);
     } else {
       return Container(
         margin: const EdgeInsets.only(left: 16, right: 16),

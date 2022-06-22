@@ -1,4 +1,5 @@
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
+import 'package:forcewallet/app/modules/welcome/views/welcome_view.dart';
 import 'package:get/get.dart';
 
 import 'package:forcewallet/app/database/store_model.dart';
@@ -15,16 +16,14 @@ class SplashController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    print("onInit");
     super.onInit();
-    FlutterTrustWalletCore.init();
+    
   }
 
   @override
   void onReady() {
     super.onReady();
-    print("onReady");
-    Future.delayed(Duration(milliseconds: 2000), () {
+    Future.delayed(Duration(milliseconds: 200), () {
       getAllWallets();
     });
   }
@@ -40,8 +39,7 @@ class SplashController extends GetxController {
     await service.initData();
     var isEmptyWallet = service.mWalletInfos.value.isEmpty;
     if (isEmptyWallet) {
-      Get.off(() => CreateView(),
-          preventDuplicates: false, binding: CreateBinding());
+      Get.off(() => WelcomeView());
     } else {
       Get.off(() => MainView(),
           preventDuplicates: false, binding: MainBinding());
