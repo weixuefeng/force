@@ -8,8 +8,6 @@ import 'package:forcewallet/app/database/store_model.dart';
 import 'package:forcewallet/app/modules/home/controllers/home_controller.dart';
 import 'package:forcewallet/app/service/wallet_service.dart';
 import 'package:forcewallet/app/utils/extension.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:path/path.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -181,9 +179,11 @@ class HomeView extends GetView<HomeController> {
     } else {
       Widget w = Text('');
       service.mStoredWalletMap.value[index]!.forEach((element) {
-        final addrL = element.showAddress!.substring(0, 10);
-        final addrR =
-            element.showAddress!.substring(element.showAddress!.length - 10);
+        final address = element.toAddress();
+        final addrL = address == null ? "" : address.substring(0, 10);
+        final addrR = address == null
+            ? ""
+            : address.substring(element.showAddress!.length - 10);
         if (controller.selectedChain == 2 &&
             element.coinType.toCoinSymbol() == "NEW") {
           w = Row(children: [
@@ -197,7 +197,7 @@ class HomeView extends GetView<HomeController> {
               margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child: InkWell(
                 onTap: () => {
-                  Clipboard.setData(ClipboardData(text: element.showAddress!)),
+                  Clipboard.setData(ClipboardData(text: element.toAddress())),
                   EasyLoading.showSuccess("NEW Address copied")
                 },
                 child: Image(
@@ -218,7 +218,7 @@ class HomeView extends GetView<HomeController> {
               margin: EdgeInsets.fromLTRB(4, 0, 0, 0),
               child: InkWell(
                 onTap: () => {
-                  Clipboard.setData(ClipboardData(text: element.showAddress!)),
+                  Clipboard.setData(ClipboardData(text: element.toAddress())),
                   EasyLoading.showSuccess("ETH Address copied")
                 },
                 child: Image(
@@ -235,8 +235,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildWalletItem(StoredWalletInfo element) {
-    final dict = {"NEW": "images/new.png", "ETH": "images/eth.png"};
-    final icon = dict[element.coinType.toCoinSymbol()] ?? "";
+    final icon = element.coinType.getIcon();
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       child: TextButton(

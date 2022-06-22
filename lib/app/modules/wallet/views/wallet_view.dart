@@ -1,18 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:forcewallet/app/utils/extension.dart';
 import '../controllers/wallet_controller.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter/services.dart';
 
 class WalletView extends GetView<WalletController> {
   const WalletView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    const info = {
-      "NEW": {"name": "Newton", "icon": "images/new.png"},
-      "ETH": {"name": "Ethereum", "icon": "images/eth.png"}
-    };
     Map<int, Widget> _children = {
       0: Text('活动'),
       1: Text('关于'),
@@ -30,7 +29,7 @@ class WalletView extends GetView<WalletController> {
                   fontSize: 18,
                 ))),
             Obx(() => Text(
-                '${info[controller.mStoredWalletInfo.value.coinType.toCoinSymbol()]?["name"]}',
+                '${controller.mStoredWalletInfo.value.coinType.toChainName()}',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 10,
@@ -49,12 +48,12 @@ class WalletView extends GetView<WalletController> {
             Center(
                 child: SingleChildScrollView(
                     child: Column(children: [
-              Container(
+              Obx(() => Container(
                   margin: const EdgeInsets.only(top: 32),
                   width: 48,
-                  child: Obx(() => Image(
+                  child: Image(
                       image: AssetImage(
-                          '${info[controller.mStoredWalletInfo.value.coinType.toCoinSymbol()]?["icon"] ?? "images/new.png"}')))),
+                          '${controller.mStoredWalletInfo.value.coinType.getIcon()}')))),
               Obx(() => Container(
                   margin: const EdgeInsets.only(top: 16),
                   child: Text(
@@ -139,73 +138,77 @@ class WalletView extends GetView<WalletController> {
 
   Future<int?> _showCustomModalBottomSheet(
       context, List<String> options) async {
-    return showModalBottomSheet<int>(
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(20.0),
-              topRight: const Radius.circular(20.0),
-            ),
-          ),
-          height: MediaQuery.of(context).size.height * 3.0 / 4.0,
-          child: Column(children: [
-            SizedBox(
-              height: 50,
-              child: Stack(
-                textDirection: TextDirection.rtl,
-                children: [
-                  Center(
-                    child: Text(
-                      '底部弹窗',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16.0),
-                    ),
-                  ),
-                  IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      }),
-                ],
+    Get.defaultDialog(
+        title: "收款",
+        content: Obx(() => Container(
+            width: 400,
+            height: 380,
+            child: ListView(children: [
+              Center(
+                  child: QrImage(
+                      data:
+                          controller.mStoredWalletInfo.value.toAddress() ?? "",
+                      version: QrVersions.auto,
+                      size: 280,
+                      gapless: false,
+                      errorStateBuilder: (cxt, err) {
+                        return Container(
+                          child: Center(
+                            child: Text(
+                              "Uh oh! Something went wrong...",
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
+                      })),
+              Obx(() => Center(
+                  child: Container(
+                      margin:
+                          const EdgeInsets.only(left: 16, right: 16, top: 16),
+                      child: Text(
+                        controller.mStoredWalletInfo.value.toAddress() ?? "",
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w400),
+                      )))),
+              Center(
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 16),
+                  child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.purple),
+                            ),
+                            onPressed: () => {
+                                  Clipboard.setData(ClipboardData(
+                                      text:
+                                          '${controller.mStoredWalletInfo.value.showAddress?.toNEWAddress(1007)}')),
+                                  EasyLoading.showSuccess("Address copied")
+                                },
+                            child: Text(
+                              "复制地址",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
+                            )),
+                        ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blue[300]),
+                            ),
+                            onPressed: () => {Navigator.of(context).pop()},
+                            child: Text(
+                              "关闭弹窗",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
+                            ))
+                      ]),
+                ),
               ),
-            ),
-            Divider(height: 1.0),
-            Expanded(
-                child: ListView(
-              children: [
-                Center(
-                    child: Container(
-                        width: 300,
-                        margin: const EdgeInsets.only(top: 32),
-                        child: QrImage(
-                          data:
-                              '${controller.mStoredWalletInfo.value.showAddress?.toNEWAddress(1007)}',
-                          version: QrVersions.auto,
-                          size: 320,
-                          gapless: false,
-                          errorStateBuilder: (cxt, err) {
-                            return Container(
-                              child: Center(
-                                child: Text(
-                                  "Uh oh! Something went wrong...",
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            );
-                          },
-                        ))),
-              ],
-            )),
-          ]),
-        );
-      },
-    );
+            ]))));
   }
 
   Widget getView() {

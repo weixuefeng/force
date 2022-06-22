@@ -24,6 +24,10 @@ extension IntExtension on int {
     return numStr.toUint8List();
   }
 
+  isNEW() {
+    return this == TWCoinType.TWCoinTypeNewChain;
+  }
+
   toCoinSymbol() {
     switch (this) {
       case TWCoinType.TWCoinTypeNewChain:
@@ -32,6 +36,26 @@ extension IntExtension on int {
         return "ETH";
     }
     return "";
+  }
+
+  toChainName() {
+    switch (this) {
+      case TWCoinType.TWCoinTypeNewChain:
+        return "Newchain";
+      case TWCoinType.TWCoinTypeEthereum:
+        return "Ethereum";
+    }
+    return "";
+  }
+
+  getIcon() {
+    switch (this) {
+      case TWCoinType.TWCoinTypeNewChain:
+        return "images/new.png";
+      case TWCoinType.TWCoinTypeEthereum:
+        return "images/eth.png";
+    }
+    return "images/new.png";
   }
 }
 
@@ -94,6 +118,7 @@ extension StringExtension on String {
   }
 
   toEther() {
-    return EtherAmount.fromUnitAndValue(EtherUnit.wei, this).getValueInUnit(EtherUnit.ether);
+    return EtherAmount.fromUnitAndValue(EtherUnit.wei, this)
+        .getValueInUnit(EtherUnit.ether);
   }
 }
