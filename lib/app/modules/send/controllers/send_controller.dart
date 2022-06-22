@@ -1,5 +1,6 @@
 import 'package:convert/convert.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_trust_wallet_core/flutter_trust_wallet_core.dart';
 import 'package:flutter_trust_wallet_core/trust_wallet_core_ffi.dart';
 import 'package:forcewallet/app/modules/scan/bindings/scan_binding.dart';
@@ -23,11 +24,23 @@ class SendController extends GetxController {
   final mStoredWalletInfo = StoredWalletInfo().obs;
   final mAddressInputController = TextEditingController().obs;
 
+  var isLoading = false.obs;
+
   var rpc = RpcEthereum(NewChainTest);
 
   @override
   void onInit() {
     super.onInit();
+    everAll([isLoading], (callback) => {
+      print(isLoading),
+      if(isLoading == true) {
+        print("show loading"),
+        EasyLoading.show()
+      } else {
+        print("hide loading"),
+        EasyLoading.dismiss()
+      }
+    });
   }
 
   @override
@@ -61,22 +74,27 @@ class SendController extends GetxController {
     }
   }
 
-  void sendTransaction() {
+  void sendTransaction() async {
+    print("show loading");
+    isLoading(true);
     try {
       var walletInfo = mStoredWalletInfo.value;
       if (walletInfo.coinType == TWCoinType.TWCoinTypeNewChain) {
-        _sendNEW();
+        await _sendNEW();
       } else if (walletInfo.coinType == TWCoinType.TWCoinTypeEthereum) {
-        _sendETH();
+        await _sendETH();
       } else {
         print("current not support ${walletInfo.coinType}");
       }
     } catch (e) {
       print(e);
+    } finally {
+      print("hide loading");
+      isLoading(false);
     }
   }
 
-  void _sendNEW() async {
+  _sendNEW() async {
     // get estamated fee
     var count =
         await rpc.getTransactionCount(mStoredWalletInfo.value.originAddress!);
@@ -89,9 +107,13 @@ class SendController extends GetxController {
     // input password
     var storedInfo =
         await ObjectBox.queryStoredinfo(mStoredWalletInfo.value.parentId);
+    print(storedInfo);
     var storeKey = StoredKey.importJson(storedInfo.text!);
-
-    var mnemonic = storeKey!.decryptMnemonic(mPassword.value.utf8Encode());
+    if(storeKey == null) {
+      print("error");
+      return;
+    }
+    var mnemonic = storeKey.decryptMnemonic(mPassword.value.utf8Encode());
     print("mnemonic: ${mnemonic.toString()}");
 
     var hdWallet = HDWallet.createWithMnemonic(mnemonic!);
@@ -121,5 +143,5 @@ class SendController extends GetxController {
     print("res: ${res}");
   }
 
-  void _sendETH() {}
+  _sendETH() {}
 }
