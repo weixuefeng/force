@@ -181,8 +181,9 @@ class HomeView extends GetView<HomeController> {
       service.mStoredWalletMap.value[index]!.forEach((element) {
         final address = element.toAddress();
         final addrL = address == null ? "" : address.substring(0, 10);
-        final addrR = address == null ? "" :
-            address.substring(element.showAddress!.length - 10);
+        final addrR = address == null
+            ? ""
+            : address.substring(element.showAddress!.length - 10);
         if (controller.selectedChain == 2 &&
             element.coinType.toCoinSymbol() == "NEW") {
           w = Row(children: [

@@ -146,7 +146,8 @@ class WalletView extends GetView<WalletController> {
             child: ListView(children: [
               Center(
                   child: QrImage(
-                      data: controller.mStoredWalletInfo.value.toAddress() ?? "",
+                      data:
+                          controller.mStoredWalletInfo.value.toAddress() ?? "",
                       version: QrVersions.auto,
                       size: 280,
                       gapless: false,

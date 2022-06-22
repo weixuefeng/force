@@ -57,7 +57,6 @@ extension IntExtension on int {
     }
     return "images/new.png";
   }
-
 }
 
 extension BigintExtension on BigInt {
@@ -119,6 +118,7 @@ extension StringExtension on String {
   }
 
   toEther() {
-    return EtherAmount.fromUnitAndValue(EtherUnit.wei, this).getValueInUnit(EtherUnit.ether);
+    return EtherAmount.fromUnitAndValue(EtherUnit.wei, this)
+        .getValueInUnit(EtherUnit.ether);
   }
 }
