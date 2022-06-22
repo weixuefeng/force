@@ -75,7 +75,6 @@ class SendController extends GetxController {
   }
 
   void sendTransaction() async {
-    print("show loading");
     isLoading(true);
     try {
       var walletInfo = mStoredWalletInfo.value;
@@ -141,6 +140,14 @@ class SendController extends GetxController {
     var res = await rpc.mWeb3Client
         .sendRawTransaction(hex.encode(output.encoded.toList()).toUint8List());
     print("res: ${res}");
+    Get.snackbar("send success", res,
+      snackbarStatus: (status) => {
+      print(status),
+        if(status == SnackbarStatus.CLOSED) {
+          Get.back()
+        }
+      }
+    );
   }
 
   _sendETH() {}

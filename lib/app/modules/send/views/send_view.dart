@@ -64,7 +64,7 @@ class SendView extends GetView<SendController> {
                   readOnly: true,
                   autofocus: false,
                   cursorColor: Theme.of(context).cursorColor,
-                  initialValue: 'NEW',
+                  initialValue: controller.mStoredWalletInfo.value.coinType.toCoinSymbol(),
                   decoration: InputDecoration(
                     labelText: controller.mStoredWalletInfo.value.coinType.toCoinSymbol(),
                     labelStyle: TextStyle(
@@ -97,7 +97,7 @@ class SendView extends GetView<SendController> {
                               borderSide: BorderSide(color: Color(0xFF6200EE)),
                             ),
                             suffixIcon: TextButton(
-                              onPressed: () => {controller.sendTransaction()},
+                              onPressed: () => {controller.sendTransaction(), focusNode.unfocus(), Get.back()},
                               child: Text("confirm"),
                             )
                           ),
